@@ -50,15 +50,28 @@ static NSString * const reuseIdentifier = @"Cell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 4;
+    return 6;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
+    UIImageView *image = [cell viewWithTag:1];
+
+    CGFloat width = [UIScreen mainScreen].bounds.size.width/2;
+    CGFloat height = [UIScreen mainScreen].bounds.size.height/3;
+    image.frame = CGRectMake(0, 0, width, height);
+    [image setImage:[UIImage imageNamed:@"movie.png"]];
     // Configure the cell
     
     return cell;
+}
+
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+   
+    CGFloat width = [UIScreen mainScreen].bounds.size.width/2;
+    CGFloat height = [UIScreen mainScreen].bounds.size.height/3;
+    return CGSizeMake(width, height);
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
