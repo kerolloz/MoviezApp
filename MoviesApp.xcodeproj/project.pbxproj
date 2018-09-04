@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		244CDB5C213E4EB900E47683 /* squares.png in Resources */ = {isa = PBXBuildFile; fileRef = 244CDB5B213E4EB800E47683 /* squares.png */; };
 		24C6D8D5213DF2670059D055 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6D8D4213DF2670059D055 /* AppDelegate.m */; };
 		24C6D8D8213DF2670059D055 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6D8D7213DF2670059D055 /* ViewController.m */; };
 		24C6D8DB213DF2670059D055 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24C6D8D9213DF2670059D055 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		244CDB5B213E4EB800E47683 /* squares.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squares.png; sourceTree = "<group>"; };
 		24C6D8D0213DF2660059D055 /* MoviesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoviesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24C6D8D3213DF2670059D055 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		24C6D8D4213DF2670059D055 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				24C6D8D6213DF2670059D055 /* ViewController.h */,
 				24C6D8D7213DF2670059D055 /* ViewController.m */,
 				24C6D8D9213DF2670059D055 /* Main.storyboard */,
+				244CDB5B213E4EB800E47683 /* squares.png */,
 				24C6D908213DF3820059D055 /* MovieDetailsViewController.h */,
 				24C6D909213DF3820059D055 /* MovieDetailsViewController.m */,
 				24C6D905213DF2F50059D055 /* HomeCollectionViewController.h */,
@@ -249,6 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				24C6D8E0213DF2670059D055 /* LaunchScreen.storyboard in Resources */,
+				244CDB5C213E4EB900E47683 /* squares.png in Resources */,
 				24C6D8DD213DF2670059D055 /* Assets.xcassets in Resources */,
 				24C6D8DB213DF2670059D055 /* Main.storyboard in Resources */,
 			);

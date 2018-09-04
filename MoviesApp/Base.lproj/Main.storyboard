@@ -126,7 +126,7 @@
         <scene sceneID="SVE-vz-eKa">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qqb-Jn-sco" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" id="gX3-l0-q8F"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="squares.png" id="gX3-l0-q8F"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CWQ-B2-eER">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
@@ -142,4 +142,7 @@
             <point key="canvasLocation" x="410.625" y="-158.45070422535213"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="squares.png" width="30" height="30"/>
+    </resources>
 </document>
