@@ -15,6 +15,7 @@
 
 @implementation HomeCollectionViewController
 
+static NSString * const apiKey = @"a305175029b4b63a7b388477740d49c7";
 static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {

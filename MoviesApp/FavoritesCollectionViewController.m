@@ -10,6 +10,7 @@
 #import "MovieDetailsViewController.h"
 
 @interface FavoritesCollectionViewController ()
+
 @property CGFloat width;
 @property CGFloat height;
 
@@ -17,9 +18,10 @@
 @end
 
 @implementation FavoritesCollectionViewController
-    
-    static NSString * const reuseIdentifier = @"Cell";
-    
+
+static NSString * const reuseIdentifier = @"Cell";
+static NSString * const apiKey = @"a305175029b4b63a7b388477740d49c7";
+
 - (void)viewDidLoad {
     [super viewDidLoad];
  
