@@ -11,6 +11,7 @@
 		244CDB5C213E4EB900E47683 /* HomeTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 244CDB5B213E4EB800E47683 /* HomeTab.png */; };
 		245E2DF8213FE6440049F944 /* FavoritesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 245E2DF7213FE6440049F944 /* FavoritesCollectionViewController.m */; };
 		24606631213E72AE00D7226C /* movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 24606630213E72AE00D7226C /* movie.png */; };
+		247B6AFA21407E0C00E85BC5 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = 247B6AF921407E0C00E85BC5 /* Movie.m */; };
 		2483B7BC213F1DAC0060FF69 /* FavTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 2483B7BB213F1DAC0060FF69 /* FavTab.png */; };
 		24C6D8D5213DF2670059D055 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6D8D4213DF2670059D055 /* AppDelegate.m */; };
 		24C6D8D8213DF2670059D055 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6D8D7213DF2670059D055 /* ViewController.m */; };
@@ -49,6 +50,9 @@
 		245E2DF7213FE6440049F944 /* FavoritesCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesCollectionViewController.m; sourceTree = "<group>"; };
 		245F8408D485720D8671DA0F /* Pods-MoviesApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoviesApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoviesApp/Pods-MoviesApp.debug.xcconfig"; sourceTree = "<group>"; };
 		24606630213E72AE00D7226C /* movie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movie.png; sourceTree = "<group>"; };
+		247B6AF821407E0C00E85BC5 /* Movie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
+		247B6AF921407E0C00E85BC5 /* Movie.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
+		247B6AFB21409F2E00E85BC5 /* MovieDetailsDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieDetailsDelegate.h; sourceTree = "<group>"; };
 		2483B7BB213F1DAC0060FF69 /* FavTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FavTab.png; sourceTree = "<group>"; };
 		24C6D8D0213DF2660059D055 /* MoviesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoviesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24C6D8D3213DF2670059D055 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -139,6 +143,9 @@
 				24C6D909213DF3820059D055 /* MovieDetailsViewController.m */,
 				24C6D905213DF2F50059D055 /* HomeCollectionViewController.h */,
 				24C6D906213DF2F50059D055 /* HomeCollectionViewController.m */,
+				247B6AF821407E0C00E85BC5 /* Movie.h */,
+				247B6AF921407E0C00E85BC5 /* Movie.m */,
+				247B6AFB21409F2E00E85BC5 /* MovieDetailsDelegate.h */,
 				24057D5121404755005B7AD7 /* api.plist */,
 				24C6D8DC213DF2670059D055 /* Assets.xcassets */,
 				24C6D8DE213DF2670059D055 /* LaunchScreen.storyboard */,
@@ -344,6 +351,7 @@
 			files = (
 				24C6D90A213DF3820059D055 /* MovieDetailsViewController.m in Sources */,
 				24C6D8D8213DF2670059D055 /* ViewController.m in Sources */,
+				247B6AFA21407E0C00E85BC5 /* Movie.m in Sources */,
 				24C6D907213DF2F50059D055 /* HomeCollectionViewController.m in Sources */,
 				24C6D8E3213DF2670059D055 /* main.m in Sources */,
 				245E2DF8213FE6440049F944 /* FavoritesCollectionViewController.m in Sources */,

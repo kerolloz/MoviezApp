@@ -12,7 +12,9 @@
 	<string>https://api.themoviedb.org/3/movie/%@/videos?api_key=a305175029b4b63a7b388477740d49c7&amp;language=en-US</string>
 	<key>movieReviewsURLFormat</key>
 	<string>https://api.themoviedb.org/3/movie/%@/reviews?api_key=a305175029b4b63a7b388477740d49c7&amp;language=en-US</string>
-	<key>youtubeVideoURLFormat</key>
+	<key>movieYoutubeVideoURLFormat</key>
 	<string>https://www.youtube.com/watch?v=%@</string>
+	<key>movieInfoURLFormat</key>
+	<string>https://api.themoviedb.org/3/movie/%@?api_key=a305175029b4b63a7b388477740d49c7&amp;language=en-US</string>
 </dict>
 </plist>
