@@ -34,4 +34,6 @@
 }
 */
 
-@end
+- (IBAction)markAsFavoriteButtonPressed:(id)sender {
+}
+    @end

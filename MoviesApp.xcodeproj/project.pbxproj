@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		244CDB5C213E4EB900E47683 /* HomeTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 244CDB5B213E4EB800E47683 /* HomeTab.png */; };
+		245E2DF8213FE6440049F944 /* FavoritesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 245E2DF7213FE6440049F944 /* FavoritesCollectionViewController.m */; };
 		24606631213E72AE00D7226C /* movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 24606630213E72AE00D7226C /* movie.png */; };
 		2483B7BC213F1DAC0060FF69 /* FavTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 2483B7BB213F1DAC0060FF69 /* FavTab.png */; };
 		24C6D8D5213DF2670059D055 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6D8D4213DF2670059D055 /* AppDelegate.m */; };
@@ -41,6 +42,8 @@
 
 /* Begin PBXFileReference section */
 		244CDB5B213E4EB800E47683 /* HomeTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeTab.png; sourceTree = "<group>"; };
+		245E2DF6213FE6440049F944 /* FavoritesCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesCollectionViewController.h; sourceTree = "<group>"; };
+		245E2DF7213FE6440049F944 /* FavoritesCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesCollectionViewController.m; sourceTree = "<group>"; };
 		24606630213E72AE00D7226C /* movie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movie.png; sourceTree = "<group>"; };
 		2483B7BB213F1DAC0060FF69 /* FavTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FavTab.png; sourceTree = "<group>"; };
 		24C6D8D0213DF2660059D055 /* MoviesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoviesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,6 +124,8 @@
 				24606630213E72AE00D7226C /* movie.png */,
 				244CDB5B213E4EB800E47683 /* HomeTab.png */,
 				2483B7BB213F1DAC0060FF69 /* FavTab.png */,
+				245E2DF6213FE6440049F944 /* FavoritesCollectionViewController.h */,
+				245E2DF7213FE6440049F944 /* FavoritesCollectionViewController.m */,
 				24C6D908213DF3820059D055 /* MovieDetailsViewController.h */,
 				24C6D909213DF3820059D055 /* MovieDetailsViewController.m */,
 				24C6D905213DF2F50059D055 /* HomeCollectionViewController.h */,
@@ -291,6 +296,7 @@
 				24C6D8D8213DF2670059D055 /* ViewController.m in Sources */,
 				24C6D907213DF2F50059D055 /* HomeCollectionViewController.m in Sources */,
 				24C6D8E3213DF2670059D055 /* main.m in Sources */,
+				245E2DF8213FE6440049F944 /* FavoritesCollectionViewController.m in Sources */,
 				24C6D8D5213DF2670059D055 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
