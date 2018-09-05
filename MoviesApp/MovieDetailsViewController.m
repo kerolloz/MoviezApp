@@ -16,8 +16,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    printf("MovieDetailsViewController viewDidLoad\n");
+    [self.movieYearLabel setText:[self.movie objectForKey:@"release_date"]];
+    [self.movieLengthLabel setText:[self.movie objectForKey:@"release_date"]];
+    [self.movieDescriptionLabel setText:[self.movie objectForKey:@"overview"]];
+   // [self.movieRatingLabel setText:[self.movie objectForKey:@"vote_average"]];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -25,5 +30,6 @@
 }
 
 - (IBAction)markAsFavoriteButtonPressed:(id)sender {
+    
 }
     @end

@@ -11,6 +11,7 @@
 @interface MovieDetailsViewController : UIViewController
     // naming convention
     // 'movie' + [name] + [type]
+@property NSDictionary *movie;
     @property (weak, nonatomic) IBOutlet UIImageView *moviePosterImageView;
     @property (weak, nonatomic) IBOutlet UILabel *movieYearLabel;
     @property (weak, nonatomic) IBOutlet UILabel *movieLengthLabel;

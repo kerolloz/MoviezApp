@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24057D5221404755005B7AD7 /* api.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24057D5121404755005B7AD7 /* api.plist */; };
 		244CDB5C213E4EB900E47683 /* HomeTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 244CDB5B213E4EB800E47683 /* HomeTab.png */; };
 		245E2DF8213FE6440049F944 /* FavoritesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 245E2DF7213FE6440049F944 /* FavoritesCollectionViewController.m */; };
 		24606631213E72AE00D7226C /* movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 24606630213E72AE00D7226C /* movie.png */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		24057D5121404755005B7AD7 /* api.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = api.plist; sourceTree = "<group>"; };
 		244CDB5B213E4EB800E47683 /* HomeTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeTab.png; sourceTree = "<group>"; };
 		245E2DF6213FE6440049F944 /* FavoritesCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesCollectionViewController.h; sourceTree = "<group>"; };
 		245E2DF7213FE6440049F944 /* FavoritesCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesCollectionViewController.m; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				24C6D909213DF3820059D055 /* MovieDetailsViewController.m */,
 				24C6D905213DF2F50059D055 /* HomeCollectionViewController.h */,
 				24C6D906213DF2F50059D055 /* HomeCollectionViewController.m */,
+				24057D5121404755005B7AD7 /* api.plist */,
 				24C6D8DC213DF2670059D055 /* Assets.xcassets */,
 				24C6D8DE213DF2670059D055 /* LaunchScreen.storyboard */,
 				24C6D8E1213DF2670059D055 /* Info.plist */,
@@ -287,6 +290,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24057D5221404755005B7AD7 /* api.plist in Resources */,
 				24C6D8E0213DF2670059D055 /* LaunchScreen.storyboard in Resources */,
 				24606631213E72AE00D7226C /* movie.png in Resources */,
 				244CDB5C213E4EB900E47683 /* HomeTab.png in Resources */,
@@ -318,15 +322,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-MoviesApp-checkManifestLockResult.txt",
 			);
