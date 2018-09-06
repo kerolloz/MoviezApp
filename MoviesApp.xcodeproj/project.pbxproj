@@ -23,6 +23,7 @@
 		24C6D8F8213DF2670059D055 /* MoviesAppUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6D8F7213DF2670059D055 /* MoviesAppUITests.m */; };
 		24C6D907213DF2F50059D055 /* HomeCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6D906213DF2F50059D055 /* HomeCollectionViewController.m */; };
 		24C6D90A213DF3820059D055 /* MovieDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6D909213DF3820059D055 /* MovieDetailsViewController.m */; };
+		24CC9A2121413EA2006DC240 /* YoutubeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24CC9A2021413EA2006DC240 /* YoutubeViewController.m */; };
 		83555A67F7904A477A1CFA66 /* libPods-MoviesApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD3AABCECAC84F39F71D82BA /* libPods-MoviesApp.a */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,8 @@
 		24C6D906213DF2F50059D055 /* HomeCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCollectionViewController.m; sourceTree = "<group>"; };
 		24C6D908213DF3820059D055 /* MovieDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieDetailsViewController.h; sourceTree = "<group>"; };
 		24C6D909213DF3820059D055 /* MovieDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieDetailsViewController.m; sourceTree = "<group>"; };
+		24CC9A1F21413EA2006DC240 /* YoutubeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YoutubeViewController.h; sourceTree = "<group>"; };
+		24CC9A2021413EA2006DC240 /* YoutubeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YoutubeViewController.m; sourceTree = "<group>"; };
 		702D8833CFACC0A6D23E6A3D /* Pods-MoviesApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoviesApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoviesApp/Pods-MoviesApp.release.xcconfig"; sourceTree = "<group>"; };
 		DD3AABCECAC84F39F71D82BA /* libPods-MoviesApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MoviesApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -129,27 +132,16 @@
 		24C6D8D2213DF2660059D055 /* MoviesApp */ = {
 			isa = PBXGroup;
 			children = (
-				24C6D8D3213DF2670059D055 /* AppDelegate.h */,
-				24C6D8D4213DF2670059D055 /* AppDelegate.m */,
-				24C6D8D6213DF2670059D055 /* ViewController.h */,
-				24C6D8D7213DF2670059D055 /* ViewController.m */,
+				24CC9A242141456D006DC240 /* Essential Files */,
+				24CC9A2521414FD4006DC240 /* Images */,
+				24CC9A232141452B006DC240 /* ViewControllers */,
+				24CC9A2221414519006DC240 /* Model */,
 				24C6D8D9213DF2670059D055 /* Main.storyboard */,
-				24606630213E72AE00D7226C /* movie.png */,
-				244CDB5B213E4EB800E47683 /* HomeTab.png */,
-				2483B7BB213F1DAC0060FF69 /* FavTab.png */,
-				245E2DF6213FE6440049F944 /* FavoritesCollectionViewController.h */,
-				245E2DF7213FE6440049F944 /* FavoritesCollectionViewController.m */,
-				24C6D908213DF3820059D055 /* MovieDetailsViewController.h */,
-				24C6D909213DF3820059D055 /* MovieDetailsViewController.m */,
-				24C6D905213DF2F50059D055 /* HomeCollectionViewController.h */,
-				24C6D906213DF2F50059D055 /* HomeCollectionViewController.m */,
-				247B6AF821407E0C00E85BC5 /* Movie.h */,
-				247B6AF921407E0C00E85BC5 /* Movie.m */,
+				24C6D8DE213DF2670059D055 /* LaunchScreen.storyboard */,
 				247B6AFB21409F2E00E85BC5 /* MovieDetailsDelegate.h */,
 				24057D5121404755005B7AD7 /* api.plist */,
-				24C6D8DC213DF2670059D055 /* Assets.xcassets */,
-				24C6D8DE213DF2670059D055 /* LaunchScreen.storyboard */,
 				24C6D8E1213DF2670059D055 /* Info.plist */,
+				24C6D8DC213DF2670059D055 /* Assets.xcassets */,
 				24C6D8E2213DF2670059D055 /* main.m */,
 			);
 			path = MoviesApp;
@@ -171,6 +163,51 @@
 				24C6D8F9213DF2670059D055 /* Info.plist */,
 			);
 			path = MoviesAppUITests;
+			sourceTree = "<group>";
+		};
+		24CC9A2221414519006DC240 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				247B6AF821407E0C00E85BC5 /* Movie.h */,
+				247B6AF921407E0C00E85BC5 /* Movie.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		24CC9A232141452B006DC240 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				245E2DF6213FE6440049F944 /* FavoritesCollectionViewController.h */,
+				245E2DF7213FE6440049F944 /* FavoritesCollectionViewController.m */,
+				24C6D908213DF3820059D055 /* MovieDetailsViewController.h */,
+				24C6D909213DF3820059D055 /* MovieDetailsViewController.m */,
+				24C6D905213DF2F50059D055 /* HomeCollectionViewController.h */,
+				24C6D906213DF2F50059D055 /* HomeCollectionViewController.m */,
+				24CC9A1F21413EA2006DC240 /* YoutubeViewController.h */,
+				24CC9A2021413EA2006DC240 /* YoutubeViewController.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		24CC9A242141456D006DC240 /* Essential Files */ = {
+			isa = PBXGroup;
+			children = (
+				24C6D8D3213DF2670059D055 /* AppDelegate.h */,
+				24C6D8D4213DF2670059D055 /* AppDelegate.m */,
+				24C6D8D6213DF2670059D055 /* ViewController.h */,
+				24C6D8D7213DF2670059D055 /* ViewController.m */,
+			);
+			path = "Essential Files";
+			sourceTree = "<group>";
+		};
+		24CC9A2521414FD4006DC240 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				24606630213E72AE00D7226C /* movie.png */,
+				244CDB5B213E4EB800E47683 /* HomeTab.png */,
+				2483B7BB213F1DAC0060FF69 /* FavTab.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		8581BA5F664A5D255620FD80 /* Pods */ = {
@@ -201,6 +238,7 @@
 				24C6D8CC213DF2660059D055 /* Sources */,
 				24C6D8CD213DF2660059D055 /* Frameworks */,
 				24C6D8CE213DF2660059D055 /* Resources */,
+				9231CD0C7DEF3ABA766C66E6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -324,6 +362,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		9231CD0C7DEF3ABA766C66E6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MoviesApp/Pods-MoviesApp-resources.sh",
+				"${PODS_ROOT}/youtube-ios-player-helper/youtube-ios-player-helper/Assets.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Assets.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoviesApp/Pods-MoviesApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		970FE1753B32F4F384A3B528 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -355,6 +411,7 @@
 				24C6D907213DF2F50059D055 /* HomeCollectionViewController.m in Sources */,
 				24C6D8E3213DF2670059D055 /* main.m in Sources */,
 				245E2DF8213FE6440049F944 /* FavoritesCollectionViewController.m in Sources */,
+				24CC9A2121413EA2006DC240 /* YoutubeViewController.m in Sources */,
 				24C6D8D5213DF2670059D055 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

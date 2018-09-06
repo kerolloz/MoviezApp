@@ -18,14 +18,17 @@
 -(void)intializeMovieWithDictionary: (NSDictionary *)movie{
     NSString *path = [[NSBundle mainBundle] pathForResource:@"api" ofType:@"plist"];
     self.apiPlistDictionary = [[NSDictionary alloc] initWithContentsOfFile:path]; // links to all the APIs we use
+    
     self.title = [movie objectForKey:@"title"];
     self.overview = [movie objectForKey:@"overview"];
     self.rating = [NSString stringWithFormat:@"%.1f", [[movie objectForKey:@"vote_average"] floatValue]  ]; // may get error
     self.movie_id = [NSString stringWithFormat:@"%d",  [[movie objectForKey:@"id"] intValue] ];  // 
     self.releaseDate = [movie objectForKey:@"release_date"];
+    
     [self bringRuntime];
     [self bringTrailers];
     [self bringReviews];
+    
     [self bringPosterWithPosterPath:[movie objectForKey:@"poster_path"]];
     
 }

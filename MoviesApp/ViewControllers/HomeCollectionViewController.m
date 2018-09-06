@@ -61,7 +61,7 @@ static NSString * const reuseIdentifier = @"Cell";
         if(!error){
             NSLog(@"\nRESPONSE:   %@ \n", [responseObject valueForKey:@"results"]);
             self.moviesArray = [responseObject valueForKey:@"results"];
-            [self.collectionView reloadData];
+           [self.collectionView reloadData];
         }else{
             // show alert here with the error message
             NSLog(@"%@", error); // error is null when the data is fetched successfuly

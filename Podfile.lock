@@ -17,20 +17,24 @@ PODS:
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
+  - youtube-ios-player-helper (0.1.6)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - SDWebImage (~> 4.0)
+  - youtube-ios-player-helper (~> 0.1.4)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - SDWebImage
+    - youtube-ios-player-helper
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  youtube-ios-player-helper: 21ab92db027c7ff86cb17a3843a3f6eafc8158d2
 
-PODFILE CHECKSUM: a84f507b570eb52fe37e70f6473f366249a9c971
+PODFILE CHECKSUM: 6607fa61da082abb839a595734570e1020365399
 
 COCOAPODS: 1.5.3

@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *movieLengthLabel;
 @property (weak, nonatomic) IBOutlet UILabel *movieRatingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *movieDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *movieTitleLabel;
 @property (weak, nonatomic) IBOutlet UITableView *movieTrailersTableView;
 @property (weak, nonatomic) IBOutlet UITableView *movieReviewsTableView;
 - (IBAction)markAsFavoriteButtonPressed:(id)sender;

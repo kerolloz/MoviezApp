@@ -9,6 +9,7 @@
 #import "MovieDetailsViewController.h"
 #import "Movie.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "YoutubeViewController.h"
 
 @interface MovieDetailsViewController ()
 
@@ -35,6 +36,9 @@
     [myMovie setMovieDelegate:self];
     [myMovie intializeMovieWithDictionary:self.movie];
     
+    self.trailers = @[];
+    self.reviews = @[];
+    
     [super viewDidLoad];
     
     printf("MovieDetailsViewController viewDidLoad\n");
@@ -43,6 +47,7 @@
     [self.movieLengthLabel setText:myMovie.movieLength];
     [self.movieDescriptionLabel setText:myMovie.overview];
     [self.movieRatingLabel setText:myMovie.rating];
+    [self.movieTitleLabel setText:myMovie.title];
     [self.moviePosterImageView setImage:myMovie.poster];
     
     [self.myScrollview setScrollEnabled:YES];
@@ -109,7 +114,11 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if([tableView isEqual:self.movieTrailersTableView]){
+        YoutubeViewController *YTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"YoutubeViewController"];
+        [YTVC setVideoKey:[[self.trailers objectAtIndex:indexPath.row] objectForKey:@"key"]];
+        [self.navigationController pushViewController:YTVC animated:YES];
+    }
 }
 
 @end
