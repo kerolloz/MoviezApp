@@ -74,7 +74,7 @@
         // responseObject is a dictionary so we need to extract the results arrray from it
         if(!error){
             NSLog(@"\nbringReviews RESPONSE:   %@ \n", responseObject);
-            self.reviews = [responseObject objectForKey:@"result"];
+            self.reviews = [responseObject objectForKey:@"results"];
             [self.movieDelegate setMyReviews:self.reviews];
         }else{
             // show alert here with the error message
