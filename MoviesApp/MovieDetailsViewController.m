@@ -13,6 +13,8 @@
 @interface MovieDetailsViewController ()
 
 @property NSDictionary *apiPlistDictionary;
+@property NSArray *trailers;
+@property NSArray *reviews;
 
 @end
 
@@ -23,6 +25,9 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"api" ofType:@"plist"];
     self.apiPlistDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
     
+    [self.movieTrailersTableView setDelegate:self];
+    [self.movieTrailersTableView setDataSource:self];
+    
     Movie *myMovie = [Movie new];
     [myMovie setMovieDelegate:self];
     [myMovie intializeMovieWithDictionary:self.movie];
@@ -30,13 +35,6 @@
     [super viewDidLoad];
     
     printf("MovieDetailsViewController viewDidLoad\n");
-//    NSLog(@"%@", self.movie);
-//    [self.movieYearLabel setText:[self.movie objectForKey:@"release_date"]];
-//    [self.movieLengthLabel setText:[self.movie objectForKey:@"release_date"]];
-//    [self.movieDescriptionLabel setText:[self.movie objectForKey:@"overview"]];
-//    //[self.movieRatingLabel setText:[self.movie objectForKey:@"vote_average"]];
-//    NSURL *imgURL = [NSURL URLWithString:[NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"moviePosterURLFormat"], [self.movie objectForKey:@"poster_path"]]];
-//    [self.moviePosterImageView sd_setImageWithURL:imgURL placeholderImage:[UIImage imageNamed:@"movie.png"]];
     
     [self.movieYearLabel setText:myMovie.releaseDate];
     [self.movieLengthLabel setText:myMovie.movieLength];
@@ -51,19 +49,47 @@
 -(void)setRunTime:(NSString*) movieLength{
     [self.movieLengthLabel setText:movieLength];
 }
--(void)setTrailers{
-    
+
+-(void)setMyTrailers:(NSArray*) trailers{
+    self.trailers = trailers;
+    NSLog(@"trailers: %@", trailers);
+    [self.movieTrailersTableView reloadData];
 }
--(void)setReviews{
-    
+-(void)setMyReviews:(NSArray*) reviews{
+    self.reviews = reviews;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (IBAction)markAsFavoriteButtonPressed:(id)sender {
     
 }
-    @end
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.trailers count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"trailerCell" forIndexPath:indexPath];
+    
+    // Configure the cell...
+    UILabel *trailerName = [cell viewWithTag:1];
+    [trailerName setText:[[self.trailers objectAtIndex:indexPath.row] objectForKey:@"name"]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"movieYoutubeVideoThumbnailURLFormat"], [[self.trailers objectAtIndex:indexPath.row] objectForKey:@"key"]]];
+    UIImageView *imgView = [cell viewWithTag:2];
+    [imgView sd_setImageWithURL:url];
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 100;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
+@end

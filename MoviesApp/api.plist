@@ -16,5 +16,7 @@
 	<string>https://www.youtube.com/watch?v=%@</string>
 	<key>movieInfoURLFormat</key>
 	<string>https://api.themoviedb.org/3/movie/%@?api_key=a305175029b4b63a7b388477740d49c7&amp;language=en-US</string>
+	<key>movieYoutubeVideoThumbnailURLFormat</key>
+	<string>https://img.youtube.com/vi/%@/default.jpg</string>
 </dict>
 </plist>

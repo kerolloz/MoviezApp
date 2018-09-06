@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MovieDetailsDelegate.h"
 
-@interface MovieDetailsViewController : UIViewController <MovieDetailsDelegate>
+@interface MovieDetailsViewController : UIViewController <MovieDetailsDelegate, UITableViewDelegate, UITableViewDataSource>
     // naming convention
     // 'movie' + [name] + [type]
 @property NSDictionary *movie;

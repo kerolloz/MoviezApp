@@ -36,53 +36,59 @@
 
 
 -(void)bringTrailers{
-    NSString *movieInfoURL = [NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"movieTrailerURLFormat"], self.movie_id];
-    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:movieInfoURL]];
-    [manager GET:@"" parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject){
-        // needs tazbeet
-        self.trailers = [[responseObject objectForKey:@"production_countries"] objectForKey:@"runtime"]; // may get an error
-        
-    } failure:^(NSURLSessionDataTask *task, id responseObject){
-        
-        NSLog(@"error in Movie Class bringTrailers method");
-        NSLog(@"%@\n", responseObject);
+    NSString *movieTrailerURL = [NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"movieTrailerURLFormat"], self.movie_id];
+    NSLog(@"MOVIE URL : %@", movieTrailerURL);
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    NSURL *URL = [NSURL URLWithString:movieTrailerURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError* error){
+        // responseObject holds the data we want
+        // responseObject is a dictionary so we need to extract the results arrray from it
+        if(!error){
+            NSLog(@"\nbringTrailers RESPONSE:   %@ \n", responseObject);
+            self.trailers = [responseObject objectForKey:@"results"];
+            [self.movieDelegate setMyTrailers:self.trailers];
 
-        
+        }else{
+            // show alert here with the error message
+            NSLog(@"%@", error); // error is null when the data is fetched successfuly
+        }
     }];
+    [dataTask resume];
 }
 
 
 -(void)bringReviews{
-    NSString *movieInfoURL = [NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"movieReviewsURLFormat"], self.movie_id];
-    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:movieInfoURL]];
-    [manager GET:@"" parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject){
-        // needs tazbeet
-        self.reviews = [[responseObject objectForKey:@"production_countries"] objectForKey:@"runtime"]; // may get an error
-        
-    } failure:^(NSURLSessionDataTask *task, id responseObject){
-        
-        NSLog(@"error in Movie Class bringReviews method");
-        NSLog(@"%@\n", responseObject);
-
-        
+    NSString *movieReviewsURL = [NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"movieReviewsURLFormat"], self.movie_id];
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    NSURL *URL = [NSURL URLWithString:movieReviewsURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError* error){
+        // responseObject holds the data we want
+        // responseObject is a dictionary so we need to extract the results arrray from it
+        if(!error){
+            NSLog(@"\nbringReviews RESPONSE:   %@ \n", responseObject);
+            self.reviews = [responseObject objectForKey:@"result"];
+            [self.movieDelegate setMyReviews:self.reviews];
+        }else{
+            // show alert here with the error message
+            NSLog(@"%@", error); // error is null when the data is fetched successfuly
+        }
     }];
+    [dataTask resume];
     
 }
 
 
 -(void)bringRuntime{
     NSString *movieInfoURL = [NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"movieInfoURLFormat"], self.movie_id];
-//    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:movieInfoURL]];
-//    [manager GET:@"" parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject){
-//
-//        self.length = [responseObject objectForKey:@"runtime"]; // may get an error
-//
-//    } failure:^(NSURLSessionDataTask *task, id responseObject){
-//        NSLog(@"error in Movie Class bringRunTime method");
-//        NSLog(@"%@\n", responseObject);
-//
-//
-//    }];
+
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
   

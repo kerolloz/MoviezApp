@@ -11,7 +11,7 @@
 @protocol MovieDetailsDelegate <NSObject>
 
 -(void)setRunTime:(NSString*) movieLength;
--(void)setTrailers;
--(void)setReviews;
+-(void)setMyTrailers:(NSArray*) trailers;
+-(void)setMyReviews:(NSArray*) reviews;
 
 @end
