@@ -18,6 +18,8 @@
 @property CGFloat height;
 @property NSArray *moviesArray; // of dictionaries
 @property NSDictionary *apiPlistDictionary;
+@property (strong, nonatomic) IBOutlet UIView *moviesSortedByView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sortButton;
 
 @end
 
@@ -33,12 +35,13 @@ static NSString * const reuseIdentifier = @"Cell";
     NSString *path = [[NSBundle mainBundle] pathForResource:@"api" ofType:@"plist"];
     self.apiPlistDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
     
-    [self fetchMoviesFromAPISortedBy:@"discoverMostPopular"]; // this sort should be determined by the user
+    [self fetchMoviesFromAPISortedBy]; // this sort should be determined by the user
     // the user choice should remain consistent during the app
     // NSUserDefaults is the solution
     [super viewDidLoad];
     
     // initialize the API Dictionary from the plist
+    self.moviesSortedByView.layer.cornerRadius = 5;
     
     
     self.moviesArray = [[NSArray alloc] initWithObjects:@"1", @"2", nil]; // 2 dumb objects
@@ -47,8 +50,12 @@ static NSString * const reuseIdentifier = @"Cell";
     self.height = [UIScreen mainScreen].bounds.size.height/2;
 }
 
--(void)fetchMoviesFromAPISortedBy: (NSString *)sortedBy{
+-(void)fetchMoviesFromAPISortedBy{
     // change this implementation to koko's
+    NSString *sortedBy = [[NSUserDefaults standardUserDefaults] objectForKey:@"sortedBy"];
+   
+    if(sortedBy == nil){sortedBy = @"discoverMostPopular";}
+    NSLog(@"%@",sortedBy);
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     NSLog(@"%@", [self.apiPlistDictionary objectForKey:sortedBy]);
@@ -68,6 +75,50 @@ static NSString * const reuseIdentifier = @"Cell";
         }
     }];
     [dataTask resume];
+}
+
+-(void)animateIn{
+    [self.view addSubview:self.moviesSortedByView];
+    self.moviesSortedByView.center = self.view.center;
+    self.moviesSortedByView.transform = CGAffineTransformMakeScale(1.3, 1.3);
+    self.moviesSortedByView.alpha = 0;
+    [UIView animateWithDuration:0.4 animations:^(){
+        self.moviesSortedByView.alpha = 1;
+        self.moviesSortedByView.transform = CGAffineTransformIdentity;
+        
+    }];
+}
+-(void)animateOut{
+    [UIView animateWithDuration:0 animations:^(){
+        self.moviesSortedByView.transform = CGAffineTransformMakeScale(1.3, 1.3);
+        self.moviesSortedByView.alpha = 0;
+    }];
+    [self.moviesSortedByView removeFromSuperview];
+}
+
+- (IBAction)sortMethodChosen:(id)sender {
+    // ***** Tags *****
+    // 1 most popular
+    // 2 highest rated
+    // ****************
+    
+    //[self animateOut];
+     [self.moviesSortedByView removeFromSuperview];
+    if([sender tag] == 1){
+        printf("MostPopular\n");
+        [[NSUserDefaults standardUserDefaults] setValue:@"discoverMostPopular" forKey:@"sortedBy"];
+    }else if ([sender tag] == 2){
+        printf("HighestRated\n");
+        
+        [[NSUserDefaults standardUserDefaults] setValue:@"discoverHighestRated" forKey:@"sortedBy"];
+    }
+    [self fetchMoviesFromAPISortedBy];
+}
+- (IBAction)sortButtonPressed:(id)sender {
+    // show the view
+    [self animateIn];
+
+    
 }
 
 

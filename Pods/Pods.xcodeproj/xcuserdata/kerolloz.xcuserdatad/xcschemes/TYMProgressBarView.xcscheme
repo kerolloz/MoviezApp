@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3BBDAD33DABB3D265C01395712D5A365"
-               BlueprintName = "Pods-MoviesApp"
+               BlueprintIdentifier = "378569A2BC817CF599F71D7D14F31F78"
+               BlueprintName = "TYMProgressBarView"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "libPods-MoviesApp.a">
+               BuildableName = "libTYMProgressBarView.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

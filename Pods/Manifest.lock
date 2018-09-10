@@ -17,24 +17,28 @@ PODS:
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
+  - TYMProgressBarView (0.3.2)
   - youtube-ios-player-helper (0.1.6)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - SDWebImage (~> 4.0)
+  - TYMProgressBarView
   - youtube-ios-player-helper (~> 0.1.4)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - SDWebImage
+    - TYMProgressBarView
     - youtube-ios-player-helper
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  TYMProgressBarView: 9f4c54bfd1cde0340f25a8c67e6c3548611f1a8e
   youtube-ios-player-helper: 21ab92db027c7ff86cb17a3843a3f6eafc8158d2
 
-PODFILE CHECKSUM: 6607fa61da082abb839a595734570e1020365399
+PODFILE CHECKSUM: 7df08186a1449bd5e984d662cfa83e7bbbde1f58
 
 COCOAPODS: 1.5.3
