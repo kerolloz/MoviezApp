@@ -64,6 +64,7 @@
     NSLog(@"trailers: %@", trailers);
     [self.movieTrailersTableView reloadData];
 }
+
 -(void)setMyReviews:(NSArray*) reviews{
     self.reviews = reviews;
     [self.movieReviewsTableView reloadData];
@@ -79,45 +80,54 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([tableView isEqual:self.movieTrailersTableView]) {
-        return [self.trailers count];
-    }else{
-        return [self.reviews count];
-    }
+    
+    if ([tableView isEqual:self.movieTrailersTableView]) { return [self.trailers count]; }
+    else{ return [self.reviews count]; }
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  
     if ([tableView isEqual:self.movieTrailersTableView]) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"trailerCell" forIndexPath:indexPath];
-        
-        // Configure the cell...
+       
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"trailerCell"
+                                                                forIndexPath:indexPath];
         UILabel *trailerName = [cell viewWithTag:1];
-        [trailerName setText:[[self.trailers objectAtIndex:indexPath.row] objectForKey:@"name"]];
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"movieYoutubeVideoThumbnailURLFormat"], [[self.trailers objectAtIndex:indexPath.row] objectForKey:@"key"]]];
         UIImageView *imgView = [cell viewWithTag:2];
-        [imgView sd_setImageWithURL:url];
-        return cell;
-    }else{
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reviewCell" forIndexPath:indexPath];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"movieYoutubeVideoThumbnailURLFormat"], [[self.trailers objectAtIndex:indexPath.row] objectForKey:@"key"]]];
         
-        // Configure the cell...
+        [trailerName setText:[[self.trailers objectAtIndex:indexPath.row] objectForKey:@"name"]];
+        [imgView sd_setImageWithURL:url];
+        
+        return cell;
+    
+    }else{
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reviewCell" forIndexPath:indexPath];
         UILabel *reviewAuthor = [cell viewWithTag:1];
         UILabel *reviewContent = [cell viewWithTag:2];
+        
         [reviewAuthor setText:[[self.reviews objectAtIndex:indexPath.row] objectForKey:@"author"] ];
         [reviewContent setText:[[self.reviews objectAtIndex:indexPath.row] objectForKey:@"content"]];
+        
         return cell;
     }
+    
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     return 80;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
     if([tableView isEqual:self.movieTrailersTableView]){
         YoutubeViewController *YTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"YoutubeViewController"];
+    
         [YTVC setVideoKey:[[self.trailers objectAtIndex:indexPath.row] objectForKey:@"key"]];
         [self.navigationController pushViewController:YTVC animated:YES];
     }
+
 }
 
 @end

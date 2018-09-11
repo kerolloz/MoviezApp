@@ -20,7 +20,6 @@
 @implementation FavoritesCollectionViewController
 
 static NSString * const reuseIdentifier = @"Cell";
-static NSString * const apiKey = @"a305175029b4b63a7b388477740d49c7";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,16 +27,9 @@ static NSString * const apiKey = @"a305175029b4b63a7b388477740d49c7";
     self.width = [UIScreen mainScreen].bounds.size.width/2;
     self.height = [UIScreen mainScreen].bounds.size.height/3;
 }
-    
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-    
 
     
-#pragma mark <UICollectionViewDataSource>
-    
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
