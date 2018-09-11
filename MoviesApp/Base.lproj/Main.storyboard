@@ -141,14 +141,6 @@
                                         <rect key="frame" x="16" y="109" width="147" height="187"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4g8-Av-BfS">
-                                        <rect key="frame" x="265" y="233" width="33" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Mark as favorite" image="star.png"/>
-                                        <connections>
-                                            <action selector="markAsFavoriteButtonPressed:" destination="66w-Ng-LuC" eventType="touchUpInside" id="wq6-nd-plJ"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gjm-Lq-JCN">
                                         <rect key="frame" x="182" y="167" width="121" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -192,7 +184,7 @@
                                         </prototypes>
                                     </tableView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Favorite:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEk-qP-ix9">
-                                        <rect key="frame" x="191" y="238" width="66" height="21"/>
+                                        <rect key="frame" x="182" y="238" width="66" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -257,6 +249,14 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4g8-Av-BfS">
+                                        <rect key="frame" x="258" y="228" width="46" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Mark as favorite" image="nonStarred.png"/>
+                                        <connections>
+                                            <action selector="markAsFavoriteButtonPressed:" destination="66w-Ng-LuC" eventType="touchUpInside" id="wq6-nd-plJ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -265,6 +265,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="fAC-Gs-aHd"/>
                     <connections>
+                        <outlet property="markAsFavoriteButtonOutlet" destination="4g8-Av-BfS" id="bPJ-Zb-QAU"/>
                         <outlet property="movieDescriptionLabel" destination="JKQ-ZA-8Xt" id="YLf-ca-utE"/>
                         <outlet property="movieLengthLabel" destination="BQA-on-dVj" id="7GM-nM-rR9"/>
                         <outlet property="moviePosterImageView" destination="65z-4o-a5b" id="kvv-Ku-EyY"/>
@@ -408,6 +409,6 @@
         <image name="HomeTab.png" width="30" height="30"/>
         <image name="highestRated.png" width="324" height="106"/>
         <image name="mostPopular.png" width="324" height="106"/>
-        <image name="star.png" width="210" height="194"/>
+        <image name="nonStarred.png" width="210" height="194"/>
     </resources>
 </document>

@@ -53,6 +53,13 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 
+-(void)viewWillAppear:(BOOL)animated{
+    self.width = [UIScreen mainScreen].bounds.size.width/2;
+    self.height = [UIScreen mainScreen].bounds.size.height/2;
+    [self.collectionView reloadData];
+    
+}
+
 -(void)fetchMoviesFromAPISortedBy{
     
     NSString *sortedBy = [[NSUserDefaults standardUserDefaults] objectForKey:@"sortedBy"];
