@@ -71,6 +71,7 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="t6y-9I-msU">
                         <barButtonItem key="rightBarButtonItem" title="Sort" id="Tdo-Y3-zAH">
+                            <inset key="imageInsets" minX="-36" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <connections>
                                 <action selector="sortButtonPressed:" destination="tQ4-YC-hiY" id="aDN-IL-cs1"/>
                             </connections>
