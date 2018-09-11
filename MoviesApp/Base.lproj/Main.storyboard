@@ -143,7 +143,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4g8-Av-BfS">
                                         <rect key="frame" x="265" y="233" width="33" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Mark as favorite" image="FavTab.png"/>
+                                        <state key="normal" title="Mark as favorite" image="star.png"/>
                                         <connections>
                                             <action selector="markAsFavoriteButtonPressed:" destination="66w-Ng-LuC" eventType="touchUpInside" id="wq6-nd-plJ"/>
                                         </connections>
@@ -407,5 +407,6 @@
         <image name="HomeTab.png" width="30" height="30"/>
         <image name="highestRated.png" width="324" height="106"/>
         <image name="mostPopular.png" width="324" height="106"/>
+        <image name="star.png" width="210" height="194"/>
     </resources>
 </document>

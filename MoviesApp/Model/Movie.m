@@ -77,6 +77,7 @@
         // responseObject is a dictionary so we need to extract the results arrray from it
         if(!error){
             NSLog(@"\nbringReviews RESPONSE:   %@ \n", responseObject);
+            
             self.reviews = [responseObject objectForKey:@"results"];
             [self.movieDelegate setMyReviews:self.reviews];
         }else{
@@ -102,9 +103,11 @@
         // responseObject holds the data we want
         // responseObject is a dictionary so we need to extract the results arrray from it
         if(!error){
-            NSLog(@"\nRESPONSE:   %@ \n", [responseObject valueForKey:@"runtime"]);
-            self.movieLength = [NSString stringWithFormat:@"%d", [[responseObject objectForKey:@"runtime"] intValue]];
-            [self.movieDelegate setRunTime:self.movieLength];
+           
+            if([responseObject objectForKey:@"runtime"] && [responseObject objectForKey:@"runtime"] != [NSNull null]){
+                self.movieLength = [NSString stringWithFormat:@"%d", [[responseObject objectForKey:@"runtime"] intValue]];
+                    [self.movieDelegate setRunTime:self.movieLength];
+            }
         }else{
             // show alert here with the error message
             NSLog(@"%@", error); // error is null when the data is fetched successfuly

@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UIView *moviesSortedByView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sortButton;
 
+
 @end
 
 
@@ -78,6 +79,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)animateIn{
+    
     [self.view addSubview:self.moviesSortedByView];
     self.moviesSortedByView.center = self.view.center;
     self.moviesSortedByView.transform = CGAffineTransformMakeScale(1.3, 1.3);
@@ -88,22 +90,12 @@ static NSString * const reuseIdentifier = @"Cell";
         
     }];
 }
--(void)animateOut{
-    [UIView animateWithDuration:0 animations:^(){
-        self.moviesSortedByView.transform = CGAffineTransformMakeScale(1.3, 1.3);
-        self.moviesSortedByView.alpha = 0;
-    }];
-    [self.moviesSortedByView removeFromSuperview];
-}
-
 - (IBAction)sortMethodChosen:(id)sender {
     // ***** Tags *****
     // 1 most popular
     // 2 highest rated
     // ****************
-    
-    //[self animateOut];
-     [self.moviesSortedByView removeFromSuperview];
+    [self.moviesSortedByView removeFromSuperview];
     if([sender tag] == 1){
         printf("MostPopular\n");
         [[NSUserDefaults standardUserDefaults] setValue:@"discoverMostPopular" forKey:@"sortedBy"];
