@@ -21,8 +21,8 @@
     
     self.title = [movie objectForKey:@"title"];
     self.overview = [movie objectForKey:@"overview"];
-    self.rating = [NSString stringWithFormat:@"%.1f", [[movie objectForKey:@"vote_average"] floatValue]  ]; // may get error
-    self.movie_id = [NSString stringWithFormat:@"%d",  [[movie objectForKey:@"id"] intValue] ];  // 
+    self.rating = [NSString stringWithFormat:@"%.1f", [[movie objectForKey:@"vote_average"] floatValue]  ];
+    self.movie_id = [NSString stringWithFormat:@"%d",  [[movie objectForKey:@"id"] intValue] ];
     self.releaseDate = [movie objectForKey:@"release_date"];
     
     [self bringRuntime];
@@ -36,22 +36,38 @@
 
 //  ***** protected *****
 
+-(NSURLRequest*)requestPrepearForKey: (NSString*)key{
+    
+    NSString *keyURL = [NSString stringWithFormat:[self.apiPlistDictionary objectForKey:key], self.movie_id];
+ 
+    
+    NSURL *URL = [NSURL URLWithString:keyURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    return request;
+}
 
-
--(void)bringTrailers{
-    NSString *movieTrailerURL = [NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"movieTrailerURLFormat"], self.movie_id];
-    NSLog(@"MOVIE URL : %@", movieTrailerURL);
+-(AFURLSessionManager*)getSessionManager{
+    
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
-    NSURL *URL = [NSURL URLWithString:movieTrailerURL];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    return manager;
     
-    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError* error){
+}
+
+
+
+-(void)bringTrailers{
+    
+    NSURLSessionDataTask *dataTask = [[self getSessionManager] dataTaskWithRequest:[self requestPrepearForKey:@"movieTrailerURLFormat"]
+                                                   uploadProgress:nil
+                                                 downloadProgress:nil
+                                                completionHandler:^(NSURLResponse *response, id responseObject, NSError* error){
         // responseObject holds the data we want
         // responseObject is a dictionary so we need to extract the results arrray from it
         if(!error){
-            NSLog(@"\nbringTrailers RESPONSE:   %@ \n", responseObject);
+            
             self.trailers = [responseObject objectForKey:@"results"];
             [self.movieDelegate setMyTrailers:self.trailers];
 
@@ -65,19 +81,12 @@
 
 
 -(void)bringReviews{
-    NSString *movieReviewsURL = [NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"movieReviewsURLFormat"], self.movie_id];
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
-    NSURL *URL = [NSURL URLWithString:movieReviewsURL];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     
-    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError* error){
+    NSURLSessionDataTask *dataTask = [[self getSessionManager] dataTaskWithRequest:[self requestPrepearForKey:@"movieReviewsURLFormat"] uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError* error){
         // responseObject holds the data we want
         // responseObject is a dictionary so we need to extract the results arrray from it
         if(!error){
-            NSLog(@"\nbringReviews RESPONSE:   %@ \n", responseObject);
-            
             self.reviews = [responseObject objectForKey:@"results"];
             [self.movieDelegate setMyReviews:self.reviews];
         }else{
@@ -91,15 +100,8 @@
 
 
 -(void)bringRuntime{
-    NSString *movieInfoURL = [NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"movieInfoURLFormat"], self.movie_id];
-
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-  
-    NSURL *URL = [NSURL URLWithString:movieInfoURL];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     
-    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError* error){
+    NSURLSessionDataTask *dataTask = [[self getSessionManager] dataTaskWithRequest:[self requestPrepearForKey:@"movieInfoURLFormat"] uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError* error){
         // responseObject holds the data we want
         // responseObject is a dictionary so we need to extract the results arrray from it
         if(!error){
