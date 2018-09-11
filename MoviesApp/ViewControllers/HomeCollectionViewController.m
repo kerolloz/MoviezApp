@@ -164,8 +164,8 @@ static NSString * const reuseIdentifier = @"Cell";
     
     if(!self.isInSortView){ // if not in sort view , you can select a movie
         MovieDetailsViewController *movie = [self.storyboard instantiateViewControllerWithIdentifier:@"MovieDetailsViewController"];
-   
-        [movie setMovie:[self.moviesArray objectAtIndex:indexPath.row]];
+        [movie setShouldInitializeWithDict:YES];
+        [movie setMovieDictionary:[self.moviesArray objectAtIndex:indexPath.row]];
         [self.navigationController pushViewController:movie animated:YES];
     }
     

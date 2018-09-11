@@ -10,4 +10,7 @@
 
 @interface FavoritesCollectionViewController : UICollectionViewController
 
+@property NSMutableArray *moviesArray; // of Movie
+
+
 @end

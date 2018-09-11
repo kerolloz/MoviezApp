@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Movie.h"
 #import "MovieDetailsDelegate.h"
 
 @interface MovieDetailsViewController : UIViewController <MovieDetailsDelegate, UITableViewDelegate, UITableViewDataSource>
     // naming convention
     // 'movie' + [name] + [type]
-@property NSDictionary *movie;
+@property NSDictionary *movieDictionary;
+@property Movie *myMovie;
 @property (weak, nonatomic) IBOutlet UIScrollView *myScrollview;
 @property (weak, nonatomic) IBOutlet UIImageView *moviePosterImageView;
 @property (weak, nonatomic) IBOutlet UILabel *movieYearLabel;
@@ -22,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *movieTitleLabel;
 @property (weak, nonatomic) IBOutlet UITableView *movieTrailersTableView;
 @property (weak, nonatomic) IBOutlet UITableView *movieReviewsTableView;
+@property BOOL shouldInitializeWithDict;
 - (IBAction)markAsFavoriteButtonPressed:(id)sender;
 
 

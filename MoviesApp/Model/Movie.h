@@ -19,6 +19,7 @@
 @property NSString *overview;
 @property NSString *rating;
 @property NSString *movieLength;
+@property NSString *posterPath;
 @property NSArray *trailers;
 @property NSArray *reviews;
 @property UIImage *poster;

@@ -11,6 +11,7 @@
 		240B1FA921473926005E79C4 /* launcScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 240B1FA821473926005E79C4 /* launcScreen.png */; };
 		2412370321479D46004EADAD /* movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 2412370221479D46004EADAD /* movie.png */; };
 		2412370D21479E29004EADAD /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 2412370C21479E29004EADAD /* star.png */; };
+		2412370F2147AAA4004EADAD /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2412370E2147AAA3004EADAD /* libsqlite3.0.tbd */; };
 		244CDB5C213E4EB900E47683 /* HomeTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 244CDB5B213E4EB800E47683 /* HomeTab.png */; };
 		244E615D2146F4AE00D9F40F /* highestRated.png in Resources */ = {isa = PBXBuildFile; fileRef = 244E615B2146F4AE00D9F40F /* highestRated.png */; };
 		244E615E2146F4AE00D9F40F /* mostPopular.png in Resources */ = {isa = PBXBuildFile; fileRef = 244E615C2146F4AE00D9F40F /* mostPopular.png */; };
@@ -53,6 +54,7 @@
 		240B1FA821473926005E79C4 /* launcScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launcScreen.png; sourceTree = "<group>"; };
 		2412370221479D46004EADAD /* movie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movie.png; sourceTree = "<group>"; };
 		2412370C21479E29004EADAD /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		2412370E2147AAA3004EADAD /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		244CDB5B213E4EB800E47683 /* HomeTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeTab.png; sourceTree = "<group>"; };
 		244E615B2146F4AE00D9F40F /* highestRated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highestRated.png; sourceTree = "<group>"; };
 		244E615C2146F4AE00D9F40F /* mostPopular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mostPopular.png; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2412370F2147AAA4004EADAD /* libsqlite3.0.tbd in Frameworks */,
 				83555A67F7904A477A1CFA66 /* libPods-MoviesApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -234,6 +237,7 @@
 		F54DEAF74B06B1B73BFE2C4F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2412370E2147AAA3004EADAD /* libsqlite3.0.tbd */,
 				DD3AABCECAC84F39F71D82BA /* libPods-MoviesApp.a */,
 			);
 			name = Frameworks;

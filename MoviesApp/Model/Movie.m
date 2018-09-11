@@ -60,10 +60,7 @@
 
 -(void)bringTrailers{
     
-    NSURLSessionDataTask *dataTask = [[self getSessionManager] dataTaskWithRequest:[self requestPrepearForKey:@"movieTrailerURLFormat"]
-                                                   uploadProgress:nil
-                                                 downloadProgress:nil
-                                                completionHandler:^(NSURLResponse *response, id responseObject, NSError* error){
+    NSURLSessionDataTask *dataTask = [[self getSessionManager] dataTaskWithRequest:[self requestPrepearForKey:@"movieTrailerURLFormat"] uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError* error){
         // responseObject holds the data we want
         // responseObject is a dictionary so we need to extract the results arrray from it
         if(!error){
@@ -86,14 +83,15 @@
     NSURLSessionDataTask *dataTask = [[self getSessionManager] dataTaskWithRequest:[self requestPrepearForKey:@"movieReviewsURLFormat"] uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError* error){
         // responseObject holds the data we want
         // responseObject is a dictionary so we need to extract the results arrray from it
-        if(!error){
-            self.reviews = [responseObject objectForKey:@"results"];
-            [self.movieDelegate setMyReviews:self.reviews];
-        }else{
-            // show alert here with the error message
-            NSLog(@"%@", error); // error is null when the data is fetched successfuly
+            if(!error){
+                self.reviews = [responseObject objectForKey:@"results"];
+                [self.movieDelegate setMyReviews:self.reviews];
+            }else{
+                // show alert here with the error message
+                NSLog(@"%@", error); // error is null when the data is fetched successfuly
+            }
         }
-    }];
+    ];
     [dataTask resume];
     
 }
@@ -119,6 +117,7 @@
 }
 
 -(void)bringPosterWithPosterPath: (NSString*)posterPath{
+    self.posterPath = posterPath;
     NSString *moviePosterURL = [NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"moviePosterURLFormat"], posterPath];
     UIImageView *imgView = [UIImageView new];
     [imgView sd_setImageWithURL:[NSURL URLWithString:moviePosterURL]];
