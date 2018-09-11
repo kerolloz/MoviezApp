@@ -20,6 +20,7 @@
 @property NSDictionary *apiPlistDictionary;
 @property (strong, nonatomic) IBOutlet UIView *moviesSortedByView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sortButton;
+@property BOOL isInSortView;
 
 
 @end
@@ -32,7 +33,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 
 - (void)viewDidLoad {
-    
+    self.isInSortView = 0;
     NSString *path = [[NSBundle mainBundle] pathForResource:@"api" ofType:@"plist"];
     self.apiPlistDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
     
@@ -51,15 +52,17 @@ static NSString * const reuseIdentifier = @"Cell";
     self.height = [UIScreen mainScreen].bounds.size.height/2;
 }
 
+
 -(void)fetchMoviesFromAPISortedBy{
-    // change this implementation to koko's
+    
     NSString *sortedBy = [[NSUserDefaults standardUserDefaults] objectForKey:@"sortedBy"];
-   
     if(sortedBy == nil){sortedBy = @"discoverMostPopular";}
-    NSLog(@"%@",sortedBy);
+  
+    NSString *title = ([sortedBy isEqualToString:@"discoverMostPopular"])? @"Most Popular" : @"Highest Rated";
+    [self.navigationItem setTitle:title];
+    
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    NSLog(@"%@", [self.apiPlistDictionary objectForKey:sortedBy]);
     NSURL *URL = [NSURL URLWithString:[self.apiPlistDictionary objectForKey:sortedBy]];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     
@@ -67,7 +70,6 @@ static NSString * const reuseIdentifier = @"Cell";
         // responseObject holds the data we want
         // responseObject is a dictionary so we need to extract the results arrray from it
         if(!error){
-            NSLog(@"\nRESPONSE:   %@ \n", [responseObject valueForKey:@"results"]);
             self.moviesArray = [responseObject valueForKey:@"results"];
            [self.collectionView reloadData];
         }else{
@@ -78,39 +80,52 @@ static NSString * const reuseIdentifier = @"Cell";
     [dataTask resume];
 }
 
--(void)animateIn{
+- (IBAction)sortButtonPressed:(id)sender {
+    // show the view
+    // animate in
+    self.isInSortView = 1;
+    [self.collectionView setScrollEnabled:NO];
     
     [self.view addSubview:self.moviesSortedByView];
+    
     self.moviesSortedByView.center = self.view.center;
     self.moviesSortedByView.transform = CGAffineTransformMakeScale(1.3, 1.3);
     self.moviesSortedByView.alpha = 0;
+    
     [UIView animateWithDuration:0.4 animations:^(){
         self.moviesSortedByView.alpha = 1;
         self.moviesSortedByView.transform = CGAffineTransformIdentity;
         
     }];
+    
+    
 }
-- (IBAction)sortMethodChosen:(id)sender {
+
+
+- (IBAction)sortMethodChosen:(id)sender { // hide the view
+   
     // ***** Tags *****
     // 1 most popular
     // 2 highest rated
     // ****************
+   
     [self.moviesSortedByView removeFromSuperview];
+    
     if([sender tag] == 1){
-        printf("MostPopular\n");
+        
         [[NSUserDefaults standardUserDefaults] setValue:@"discoverMostPopular" forKey:@"sortedBy"];
+        
     }else if ([sender tag] == 2){
-        printf("HighestRated\n");
         
         [[NSUserDefaults standardUserDefaults] setValue:@"discoverHighestRated" forKey:@"sortedBy"];
+        
     }
-    [self fetchMoviesFromAPISortedBy];
-}
-- (IBAction)sortButtonPressed:(id)sender {
-    // show the view
-    [self animateIn];
-
     
+    // once out of sort view, you can select a movie
+    self.isInSortView = 0;
+    [self.collectionView setScrollEnabled:YES];
+    
+    [self fetchMoviesFromAPISortedBy];
 }
 
 
@@ -128,6 +143,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     UIImageView *image = [cell viewWithTag:1];
     image.frame = CGRectMake(0, 0, self.width, self.height);
+    
     if([self.moviesArray count] > 2){
         NSString *moviePosterURLFormat = [self.apiPlistDictionary objectForKey:@"moviePosterURLFormat"];
         NSString *posterPath = [(NSDictionary *)[self.moviesArray objectAtIndex:indexPath.row] objectForKey:@"poster_path"];
@@ -136,8 +152,6 @@ static NSString * const reuseIdentifier = @"Cell";
                  placeholderImage:[UIImage imageNamed:@"movie.png"]];
     }
   
-    // Configure the cell
-    
     return cell;
 }
 
@@ -147,9 +161,14 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    MovieDetailsViewController *movie = [self.storyboard instantiateViewControllerWithIdentifier:@"MovieDetailsViewController"];
-    [movie setMovie:[self.moviesArray objectAtIndex:indexPath.row]];
-    [self.navigationController pushViewController:movie animated:YES];
+    
+    if(!self.isInSortView){ // if not in sort view , you can select a movie
+        MovieDetailsViewController *movie = [self.storyboard instantiateViewControllerWithIdentifier:@"MovieDetailsViewController"];
+   
+        [movie setMovie:[self.moviesArray objectAtIndex:indexPath.row]];
+        [self.navigationController pushViewController:movie animated:YES];
+    }
+    
 }
 
 
