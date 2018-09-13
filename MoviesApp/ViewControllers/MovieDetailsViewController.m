@@ -165,7 +165,7 @@
 }
 
 -(void)addFetchedTrailersToDB{
-    sqlite3_stmt    *statement;
+    sqlite3_stmt    *statement = NULL;
     const char *dbpath = [_databasePath UTF8String];
     
     if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
@@ -200,7 +200,7 @@
 
 
 -(void)addFetchedReviewsToDB{
-    sqlite3_stmt    *statement;
+    sqlite3_stmt    *statement = NULL;
     const char *dbpath = [_databasePath UTF8String];
     
     if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)

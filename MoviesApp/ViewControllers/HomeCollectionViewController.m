@@ -190,7 +190,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     int sortMethod = ([sortedBy isEqualToString:@"discoverMostPopular"])? 1 : 2;
     
-    sqlite3_stmt    *statement;
+    sqlite3_stmt    *statement = NULL;
     const char *dbpath = [_databasePath UTF8String];
     
     if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
