@@ -139,6 +139,38 @@
 
 -(void)setRunTime:(NSString*) movieLength{
     [self.movieLengthLabel setText:movieLength];
+    self.myMovie.movieLength = movieLength;
+    [self updateRuntimeInDB];
+    
+}
+-(void)updateRuntimeInDB{
+    sqlite3_stmt    *statement = NULL;
+    const char *dbpath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
+    {
+        
+            
+            NSString *insertSQL = [NSString stringWithFormat:
+                                   @"UPDATE MOVIES SET Runtime = \'%@\' WHERE Movie_ID=\'%@\'",
+                                   self.myMovie.movieLength,
+                                   self.myMovie.movie_id
+                                   ];
+            
+            const char *insert_stmt = [insertSQL UTF8String];
+            sqlite3_prepare_v2(_contactDB, insert_stmt,
+                               -1, &statement, NULL);
+            if (sqlite3_step(statement) == SQLITE_DONE)
+            {
+                NSLog(@"Runtime Updated");
+                
+            } else {
+                NSLog(@"failed to Update Runtime");
+            }
+        
+        sqlite3_finalize(statement);
+        sqlite3_close(_contactDB);
+    }
 }
 
 -(void)setMyTrailers:(NSArray*) trailers{
@@ -196,8 +228,6 @@
         sqlite3_close(_contactDB);
     }
 }
-
-
 
 -(void)addFetchedReviewsToDB{
     sqlite3_stmt    *statement = NULL;
@@ -355,28 +385,25 @@
         [self.movieTrailersTableView removeFromSuperview];
 }
 
-
 - (IBAction)markAsFavoriteButtonPressed:(id)sender {
     
     if(self.myMovie.isFav){
         [self.markAsFavoriteButtonOutlet setImage:[UIImage imageNamed:@"nonStarred.png"] forState:UIControlStateNormal];
-        [self removeMovieFromDataBase];
+        [self removeMovieFromFavorites];
         self.myMovie.isFav = NO;
     }else{
-        [self addMovieToDataBase];
+        [self addMovieToFavorite];
         [self.markAsFavoriteButtonOutlet setImage:[UIImage imageNamed:@"star.png"] forState:UIControlStateNormal];
         self.myMovie.isFav = YES;
     }
 }
 
--(void)addMovieToDataBase{
+-(void)addMovieToFavorite{
     sqlite3_stmt    *statement;
     const char *dbpath = [_databasePath UTF8String];
     
     if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
     {
-        self.myMovie.title = [self.myMovie.title stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
-        self.myMovie.overview = [self.myMovie.overview stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
         NSString *insertSQL = [NSString stringWithFormat:
                                @"UPDATE Movies SET isFav=1 WHERE MOVIE_ID=\'%@\'",
                                self.myMovie.movie_id
@@ -397,7 +424,7 @@
     }
 }
 
--(void)removeMovieFromDataBase{
+-(void)removeMovieFromFavorites{
     sqlite3_stmt    *statement;
     const char *dbpath = [_databasePath UTF8String];
     
@@ -405,9 +432,8 @@
     {
         
         NSString *insertSQL = [NSString stringWithFormat:
-                               @"UPDATE MOVIES SET isFav=0 WHERE TITLE = \'%@\'",
-                               
-                               [self.myMovie.title stringByReplacingOccurrencesOfString:@"'" withString:@"''"]
+                               @"UPDATE MOVIES SET isFav=0 WHERE Movie_ID = \'%@\'",
+                               self.myMovie.movie_id
                                ];
         
         const char *insert_stmt = [insertSQL UTF8String];
@@ -479,6 +505,7 @@
     }
 
 }
+
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if([tableView isEqual:self.movieTrailersTableView]) return @"Trailers";
     else return @"Reviews";
