@@ -7,6 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MovieDetailsViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <AFNetworking.h>
+#import <sqlite3.h>
+#import "Reachability.h"
 
 @interface HomeCollectionViewController : UICollectionViewController<UICollectionViewDelegateFlowLayout>
 

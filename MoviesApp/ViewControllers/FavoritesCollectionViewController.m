@@ -7,10 +7,7 @@
 //
 
 #import "FavoritesCollectionViewController.h"
-#import "MovieDetailsViewController.h"
-#import <SDWebImage/UIImageView+WebCache.h>
-#import <sqlite3.h>
-#import "Movie.h"
+
 
 @interface FavoritesCollectionViewController ()
 
@@ -54,23 +51,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     // Build the path to the database file
     _databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent:@"movies.db"]];
-    
-    const char *dbpath = [_databasePath UTF8String];
-    
-    if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
-    {
-        char *errMsg;
-        const char *sql_stmt =
-        "CREATE TABLE IF NOT EXISTS MOVIES (ID TEXT PRIMARY KEY, TITLE TEXT, OVERVIEW TEXT, RATING TEXT, RELEASE_YEAR TEXT, RUNTIME TEXT, POSTER_PATH TEXT)";
-        
-        if (sqlite3_exec(_contactDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
-        {
-            NSLog(@"Failed to create table");
-        }
-        sqlite3_close(_contactDB);
-    } else {
-        NSLog(@"Failed to open/create database");
-    }
+
 }
 
 
@@ -83,7 +64,7 @@ static NSString * const reuseIdentifier = @"Cell";
     if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
     {
         NSString *querySQL = [NSString stringWithFormat:
-                              @"SELECT * FROM MOVIES"]; // bring all movies
+                              @"SELECT * FROM MOVIES WHERE isFav=1"]; // bring all movies
         //ID 0
         //TITLE 1
         //OVERVIEW 2
@@ -91,6 +72,8 @@ static NSString * const reuseIdentifier = @"Cell";
         //RELEASE_YEAR 4
         //RUNTIME 5
         //POSTER_PATH 6
+        //SORT 7          -1 MostPop -2 Highest
+        //isFav 8   1. True 0.False
         const char *query_stmt = [querySQL UTF8String];
         
         if (sqlite3_prepare_v2(_contactDB,

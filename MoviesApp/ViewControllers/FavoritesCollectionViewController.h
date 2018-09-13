@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MovieDetailsViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <sqlite3.h>
+#import "Movie.h"
 
 @interface FavoritesCollectionViewController : UICollectionViewController
 

@@ -23,6 +23,7 @@
 @property NSArray *trailers;
 @property NSArray *reviews;
 @property UIImage *poster;
+@property (assign) BOOL isFav;
 @property NSDictionary *apiPlistDictionary;
 
 -(void)intializeMovieWithDictionary: (NSDictionary *)movie;

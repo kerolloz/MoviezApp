@@ -7,16 +7,13 @@
 //
 
 #import "MovieDetailsViewController.h"
-#import <SDWebImage/UIImageView+WebCache.h>
-#import "YoutubeViewController.h"
-#import <sqlite3.h>
+
 
 @interface MovieDetailsViewController ()
 
-@property BOOL isFavorite;
 @property NSDictionary *apiPlistDictionary;
-@property NSArray *trailers;
-@property NSArray *reviews;
+@property NSMutableArray *trailers;
+@property NSMutableArray *reviews;
 @property (strong , nonatomic) NSString *databasePath;
 @property (nonatomic) sqlite3 *contactDB;
 @property (weak, nonatomic) IBOutlet UIButton *markAsFavoriteButtonOutlet;
@@ -32,8 +29,9 @@
     //self.shouldInitializeWithDict = YES;
     NSString *path = [[NSBundle mainBundle] pathForResource:@"api" ofType:@"plist"];
     self.apiPlistDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
-    
-    [self intializeDataBase];
+
+    self.trailers = [NSMutableArray new];
+    self.reviews = [NSMutableArray new];
     
     [self.movieTrailersTableView setDelegate:self];
     [self.movieTrailersTableView setDataSource:self];
@@ -41,22 +39,14 @@
     [self.movieReviewsTableView setDelegate:self];
     [self.movieReviewsTableView setDataSource:self];
     
-    [self fetchMoviesFromDataBase];
+    [self intializeDataBase];
+    [self checkInternetConnectivity];
     
-    if(self.shouldInitializeWithDict){
-        self.myMovie = [Movie new];
-        [self.myMovie setMovieDelegate:self];
-        [self.myMovie intializeMovieWithDictionary:self.movieDictionary];
-    }else{
-        
-        NSString *moviePosterURL = [NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"moviePosterURLFormat"], self.myMovie.posterPath];
-        [self.moviePosterImageView sd_setImageWithURL:[NSURL URLWithString:moviePosterURL]];
-        self.myMovie.poster = self.moviePosterImageView.image;
-    }
-    
-    self.trailers = @[];
-    self.reviews = @[];
-    
+
+//
+//    self.trailers = @[];
+//    self.reviews = @[];
+//
     printf("MovieDetailsViewController viewDidLoad\n");
     
     [self.movieYearLabel setText:self.myMovie.releaseDate];
@@ -72,18 +62,38 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    self.isFavorite = NO;
-    for(Movie *movie in self.moviesArray){
-        if([movie.title isEqualToString:_myMovie.title]){
-            self.isFavorite = YES;
-            break;
+    [self fetchMovieFromDB];
+    if(self.myMovie.isFav){
+        [self.markAsFavoriteButtonOutlet setImage:[UIImage imageNamed:@"star.png"] forState:UIControlStateNormal];
+    } else{
+        [self.markAsFavoriteButtonOutlet setImage:[UIImage imageNamed:@"nonStarred.png"] forState:UIControlStateNormal];
+    }
+}
+
+-(void)checkInternetConnectivity{
+    
+    if ([[Reachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable){
+        //connection unavailable
+        [self fetchTrailersFromDB];
+        [self fetchReviewsFromDB];
+    }
+    else{
+        //connection available
+        if(self.shouldInitializeWithDict){
+            self.myMovie = [Movie new];
+            [self.myMovie setMovieDelegate:self];
+            [self.myMovie intializeMovieWithDictionary:self.movieDictionary];
+        }else{
+            
+            NSString *moviePosterURL = [NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"moviePosterURLFormat"], self.myMovie.posterPath];
+            [self.moviePosterImageView sd_setImageWithURL:[NSURL URLWithString:moviePosterURL]];
+            self.myMovie.poster = self.moviePosterImageView.image;
+            
+            [self fetchTrailersFromDB];
+            [self fetchReviewsFromDB];
         }
     }
-    if(self.isFavorite)
-        [self.markAsFavoriteButtonOutlet setImage:[UIImage imageNamed:@"star.png"] forState:UIControlStateNormal];
-    else
-        [self.markAsFavoriteButtonOutlet setImage:[UIImage imageNamed:@"nonStarred.png"] forState:UIControlStateNormal];
-
+    
 }
 
 -(void)intializeDataBase{
@@ -96,14 +106,25 @@
     
     // Build the path to the database file
     _databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent:@"movies.db"]];
-
+    
     const char *dbpath = [_databasePath UTF8String];
     
     if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
     {
         char *errMsg;
         const char *sql_stmt =
-        "CREATE TABLE IF NOT EXISTS MOVIES (ID TEXT PRIMARY KEY, TITLE TEXT, OVERVIEW TEXT, RATING TEXT, RELEASE_YEAR TEXT, RUNTIME TEXT, POSTER_PATH TEXT)";
+        "CREATE TABLE IF NOT EXISTS Trailers ("
+        "Movie_ID TEXT,"
+        "Name TEXT,"
+        "Image TEXT,"
+        "PRIMARY KEY(MOVIE_ID, Name)"
+        "); "
+        "CREATE TABLE IF NOT EXISTS Reviews ("
+        "Movie_ID TEXT,"
+        "Author TEXT,"
+        "Content TEXT,"
+        "PRIMARY KEY(MOVIE_ID, AUTHOR)"
+        ")";
         
         if (sqlite3_exec(_contactDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
         {
@@ -112,6 +133,233 @@
         sqlite3_close(_contactDB);
     } else {
         NSLog(@"Failed to open/create database");
+    }
+
+}
+
+-(void)setRunTime:(NSString*) movieLength{
+    [self.movieLengthLabel setText:movieLength];
+}
+
+-(void)setMyTrailers:(NSArray*) trailers{
+    self.trailers = [trailers mutableCopy];
+    if([self.trailers count]){
+        [self.movieTrailersTableView reloadData];
+        [self addFetchedTrailersToDB];
+    }else{
+        // no trailers available
+        [self.movieTrailersTableView removeFromSuperview];
+    }
+        
+}
+
+-(void)setMyReviews:(NSArray*) reviews{
+    self.reviews = [reviews mutableCopy];
+    if([self.reviews count]){
+        [self.movieReviewsTableView reloadData];
+        [self addFetchedReviewsToDB];
+    }else{
+        [self.movieReviewsTableView removeFromSuperview];
+        
+    }
+}
+
+-(void)addFetchedTrailersToDB{
+    sqlite3_stmt    *statement;
+    const char *dbpath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
+    {
+        for (NSDictionary *trailer in self.trailers) {
+            NSString *name = [[trailer objectForKey:@"name"] stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
+            NSString *image = [[trailer objectForKey:@"key"] stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
+            
+            NSString *insertSQL = [NSString stringWithFormat:
+                                   @"INSERT INTO Trailers (MOVIE_ID, Name, Image) VALUES (\'%@\', \'%@\', \'%@\')",
+                                   self.myMovie.movie_id,
+                                   name,
+                                   image
+                                   ];
+            
+            const char *insert_stmt = [insertSQL UTF8String];
+            sqlite3_prepare_v2(_contactDB, insert_stmt,
+                               -1, &statement, NULL);
+            if (sqlite3_step(statement) == SQLITE_DONE)
+            {
+                NSLog(@"trailer added");
+                
+            } else {
+                NSLog(@"failed to add Trailer");
+            }
+        }
+        sqlite3_finalize(statement);
+        sqlite3_close(_contactDB);
+    }
+}
+
+
+
+-(void)addFetchedReviewsToDB{
+    sqlite3_stmt    *statement;
+    const char *dbpath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
+    {
+        for (NSDictionary *review in self.reviews) {
+            
+            NSString *insertSQL = [NSString stringWithFormat:
+                                   @"INSERT INTO Reviews (MOVIE_ID, Author, Content) VALUES (\'%@\', \'%@\', \'%@\')",
+                                   self.myMovie.movie_id,
+                                   [[review objectForKey:@"author"]stringByReplacingOccurrencesOfString:@"'" withString:@"''"],
+                                   [[review objectForKey:@"content"]stringByReplacingOccurrencesOfString:@"'" withString:@"''"]
+                                   ];
+            
+            const char *insert_stmt = [insertSQL UTF8String];
+            sqlite3_prepare_v2(_contactDB, insert_stmt,
+                               -1, &statement, NULL);
+            if (sqlite3_step(statement) == SQLITE_DONE)
+            {
+                NSLog(@"Review added");
+                
+            } else {
+                NSLog(@"failed to add Review");
+            }
+        }
+        sqlite3_finalize(statement);
+        sqlite3_close(_contactDB);
+    }
+}
+
+-(void)fetchMovieFromDB{
+    const char *dbpath = [_databasePath UTF8String];
+    sqlite3_stmt    *statement;
+    
+    
+    if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
+    {
+        NSString *querySQL = [NSString stringWithFormat:
+                              @"SELECT isFav FROM Movies WHERE Movie_ID=\"%@\"", self.myMovie.movie_id]; // bring all movies
+        //MOVIE_ID 0
+        //TITLE 1
+        //OVERVIEW 2
+        
+        const char *query_stmt = [querySQL UTF8String];
+        
+        if (sqlite3_prepare_v2(_contactDB,
+                               query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            while (sqlite3_step(statement) == SQLITE_ROW)
+            {
+                // set data from table
+                int  isFav = sqlite3_column_int(statement, 0);
+                if(isFav)
+                    self.myMovie.isFav = 1;
+                else
+                    self.myMovie.isFav = 0;
+                
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(_contactDB);
+    }
+}
+
+-(void)fetchReviewsFromDB{
+    
+    const char *dbpath = [_databasePath UTF8String];
+    sqlite3_stmt    *statement;
+    
+    
+    if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
+    {
+        NSString *querySQL = [NSString stringWithFormat:
+                              @"SELECT * FROM Reviews WHERE Movie_ID=\"%@\"", self.myMovie.movie_id]; // bring all movies
+        //MOVIE_ID 0
+        //TITLE 1
+        //OVERVIEW 2
+        
+        const char *query_stmt = [querySQL UTF8String];
+        
+        if (sqlite3_prepare_v2(_contactDB,
+                               query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            while (sqlite3_step(statement) == SQLITE_ROW)
+            {
+                NSMutableDictionary *review = [NSMutableDictionary new];
+                // set data from table
+                NSString * author = [[NSString alloc]
+                                  initWithUTF8String:
+                                  (const char *) sqlite3_column_text(
+                                                                     statement, 1)];
+                NSString * content = [[NSString alloc]
+                                     initWithUTF8String:
+                                     (const char *) sqlite3_column_text(
+                                                                        statement, 2)];
+                [review setValue:author forKey:@"author"];
+                [review setValue:content forKey:@"content"];
+               
+                [self.reviews addObject:review];
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(_contactDB);
+    }
+    [self.movieReviewsTableView reloadData];
+}
+
+-(void)fetchTrailersFromDB{
+    const char *dbpath = [_databasePath UTF8String];
+    sqlite3_stmt    *statement;
+    
+    
+    if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
+    {
+        NSString *querySQL = [NSString stringWithFormat:
+                              @"SELECT * FROM Trailers WHERE Movie_ID=\"%@\"", self.myMovie.movie_id]; // bring all movies
+        //MOVIE_ID 0
+        //Name 1
+        //Image 2
+        
+        const char *query_stmt = [querySQL UTF8String];
+        
+        if (sqlite3_prepare_v2(_contactDB,
+                               query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            while (sqlite3_step(statement) == SQLITE_ROW)
+            {
+                NSMutableDictionary *trailer = [NSMutableDictionary new];
+                // set data from table
+                NSString * name = [[NSString alloc]
+                                     initWithUTF8String:
+                                     (const char *) sqlite3_column_text(
+                                                                        statement, 1)];
+                NSString * key = [[NSString alloc]
+                                      initWithUTF8String:
+                                      (const char *) sqlite3_column_text(
+                                                                         statement, 2)];
+                [trailer setValue:name forKey:@"name"];
+                [trailer setValue:key forKey:@"key"];
+                
+                [self.trailers addObject:trailer];
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(_contactDB);
+    }
+    [self.movieTrailersTableView reloadData];
+}
+
+
+- (IBAction)markAsFavoriteButtonPressed:(id)sender {
+    
+    if(self.myMovie.isFav){
+        [self.markAsFavoriteButtonOutlet setImage:[UIImage imageNamed:@"nonStarred.png"] forState:UIControlStateNormal];
+        [self removeMovieFromDataBase];
+        self.myMovie.isFav = NO;
+    }else{
+        [self addMovieToDataBase];
+        [self.markAsFavoriteButtonOutlet setImage:[UIImage imageNamed:@"star.png"] forState:UIControlStateNormal];
+        self.myMovie.isFav = YES;
     }
 }
 
@@ -124,14 +372,8 @@
         self.myMovie.title = [self.myMovie.title stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
         self.myMovie.overview = [self.myMovie.overview stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
         NSString *insertSQL = [NSString stringWithFormat:
-                               @"INSERT INTO MOVIES (ID, TITLE, OVERVIEW, RATING, RELEASE_YEAR, RUNTIME, POSTER_PATH) VALUES (\'%@\', \'%@\', \'%@\', \'%@\', \'%@\', \'%@\', \'%@\')",
-                               self.myMovie.movie_id,
-                               self.myMovie.title,
-                               self.myMovie.overview,
-                               self.myMovie.rating,
-                               self.myMovie.releaseDate,
-                               self.myMovie.movieLength,
-                               self.myMovie.posterPath
+                               @"UPDATE Movies SET isFav=1 WHERE MOVIE_ID=\'%@\'",
+                               self.myMovie.movie_id
                                ];
         
         const char *insert_stmt = [insertSQL UTF8String];
@@ -139,10 +381,10 @@
                            -1, &statement, NULL);
         if (sqlite3_step(statement) == SQLITE_DONE)
         {
-            NSLog(@"movie added");
+            NSLog(@"movie added to FAVORITES");
             
         } else {
-            NSLog(@"failed to add Movie");
+            NSLog(@"failed to add Movie to FAV");
         }
         sqlite3_finalize(statement);
         sqlite3_close(_contactDB);
@@ -152,14 +394,14 @@
 -(void)removeMovieFromDataBase{
     sqlite3_stmt    *statement;
     const char *dbpath = [_databasePath UTF8String];
-
+    
     if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
     {
         
         NSString *insertSQL = [NSString stringWithFormat:
-                               @"DELETE FROM MOVIES WHERE TITLE = \"%@\"",
+                               @"UPDATE MOVIES SET isFav=0 WHERE TITLE = \'%@\'",
                                
-                               self.myMovie.title
+                               [self.myMovie.title stringByReplacingOccurrencesOfString:@"'" withString:@"''"]
                                ];
         
         const char *insert_stmt = [insertSQL UTF8String];
@@ -174,117 +416,6 @@
         }
         sqlite3_finalize(statement);
         sqlite3_close(_contactDB);
-    }
-}
-
--(void)fetchMoviesFromDataBase{
-    
-    
-    const char *dbpath = [_databasePath UTF8String];
-    sqlite3_stmt    *statement;
-    
-    if (sqlite3_open(dbpath, &_contactDB) == SQLITE_OK)
-    {
-        NSString *querySQL = [NSString stringWithFormat:
-                              @"SELECT * FROM MOVIES"]; // bring all movies
-        //ID 0
-        //TITLE 1
-        //OVERVIEW 2
-        //RATING 3
-        //RELEASE_YEAR 4
-        //RUNTIME 5
-        //POSTER_PATH 6
-        const char *query_stmt = [querySQL UTF8String];
-        
-        if (sqlite3_prepare_v2(_contactDB,
-                               query_stmt, -1, &statement, NULL) == SQLITE_OK)
-        {
-            while (sqlite3_step(statement) == SQLITE_ROW)
-            {
-                Movie *movie = [Movie new];
-                // set data from table
-                movie.movie_id = [[NSString alloc]
-                                  initWithUTF8String:
-                                  (const char *) sqlite3_column_text(
-                                                                     statement, 0)];
-                
-                movie.title = [[NSString alloc]
-                               initWithUTF8String:
-                               (const char *) sqlite3_column_text(
-                                                                  statement, 1)];
-                
-                movie.overview = [[NSString alloc]
-                                  initWithUTF8String:
-                                  (const char *) sqlite3_column_text(
-                                                                     statement, 2)];
-                
-                movie.rating = [[NSString alloc]
-                                initWithUTF8String:
-                                (const char *) sqlite3_column_text(
-                                                                   statement, 3)];
-                
-                movie.releaseDate = [[NSString alloc]
-                                     initWithUTF8String:
-                                     (const char *) sqlite3_column_text(
-                                                                        statement, 4)];
-                
-                movie.movieLength = [[NSString alloc]
-                                     initWithUTF8String:
-                                     (const char *) sqlite3_column_text(
-                                                                        statement, 5)];
-                
-                movie.posterPath = [[NSString alloc]
-                                    initWithUTF8String:
-                                    (const char *) sqlite3_column_text(
-                                                                       statement, 6)];
-                
-                [self.moviesArray addObject:movie];
-                NSLog( @"Match found");
-                
-            }
-            sqlite3_finalize(statement);
-        }
-        sqlite3_close(_contactDB);
-    }
-    
-}
-
-
--(void)setRunTime:(NSString*) movieLength{
-    [self.movieLengthLabel setText:movieLength];
-}
-
--(void)setMyTrailers:(NSArray*) trailers{
-    self.trailers = trailers;
-    if([self.trailers count]){
-        [self.movieTrailersTableView reloadData];
-    }else{
-        // no trailers available
-        [self.movieTrailersTableView removeFromSuperview];
-    }
-        
-}
-
--(void)setMyReviews:(NSArray*) reviews{
-    self.reviews = reviews;
-    if([self.reviews count])
-        [self.movieReviewsTableView reloadData];
-    else
-        [self.movieReviewsTableView removeFromSuperview];
-    
-}
-
-
-- (IBAction)markAsFavoriteButtonPressed:(id)sender {
-    
-    if(self.isFavorite){
-        [self.markAsFavoriteButtonOutlet setImage:[UIImage imageNamed:@"nonStarred.png"] forState:UIControlStateNormal];
-        [self removeMovieFromDataBase];
-        self.isFavorite = NO;
-    }else{
-        [self addMovieToDataBase];
-        [self.markAsFavoriteButtonOutlet setImage:[UIImage imageNamed:@"star.png"] forState:UIControlStateNormal];
-        self.isFavorite = YES;
     }
 }
 

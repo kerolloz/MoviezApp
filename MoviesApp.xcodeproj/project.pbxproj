@@ -15,6 +15,8 @@
 		244CDB5C213E4EB900E47683 /* HomeTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 244CDB5B213E4EB800E47683 /* HomeTab.png */; };
 		244E615D2146F4AE00D9F40F /* highestRated.png in Resources */ = {isa = PBXBuildFile; fileRef = 244E615B2146F4AE00D9F40F /* highestRated.png */; };
 		244E615E2146F4AE00D9F40F /* mostPopular.png in Resources */ = {isa = PBXBuildFile; fileRef = 244E615C2146F4AE00D9F40F /* mostPopular.png */; };
+		245B4463214A800C00159854 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 245B4461214A800A00159854 /* Reachability.m */; };
+		245B4465214A804800159854 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 245B4464214A804800159854 /* SystemConfiguration.framework */; };
 		245E2DF8213FE6440049F944 /* FavoritesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 245E2DF7213FE6440049F944 /* FavoritesCollectionViewController.m */; };
 		247B6AFA21407E0C00E85BC5 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = 247B6AF921407E0C00E85BC5 /* Movie.m */; };
 		2483B7BC213F1DAC0060FF69 /* FavTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 2483B7BB213F1DAC0060FF69 /* FavTab.png */; };
@@ -57,6 +59,9 @@
 		244CDB5B213E4EB800E47683 /* HomeTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeTab.png; sourceTree = "<group>"; };
 		244E615B2146F4AE00D9F40F /* highestRated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highestRated.png; sourceTree = "<group>"; };
 		244E615C2146F4AE00D9F40F /* mostPopular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mostPopular.png; sourceTree = "<group>"; };
+		245B4461214A800A00159854 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		245B4462214A800C00159854 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		245B4464214A804800159854 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		245E2DF6213FE6440049F944 /* FavoritesCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesCollectionViewController.h; sourceTree = "<group>"; };
 		245E2DF7213FE6440049F944 /* FavoritesCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesCollectionViewController.m; sourceTree = "<group>"; };
 		245F8408D485720D8671DA0F /* Pods-MoviesApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoviesApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoviesApp/Pods-MoviesApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				245B4465214A804800159854 /* SystemConfiguration.framework in Frameworks */,
 				2412370F2147AAA4004EADAD /* libsqlite3.0.tbd in Frameworks */,
 				83555A67F7904A477A1CFA66 /* libPods-MoviesApp.a in Frameworks */,
 			);
@@ -193,6 +199,8 @@
 				24C6D906213DF2F50059D055 /* HomeCollectionViewController.m */,
 				24CC9A1F21413EA2006DC240 /* YoutubeViewController.h */,
 				24CC9A2021413EA2006DC240 /* YoutubeViewController.m */,
+				245B4462214A800C00159854 /* Reachability.h */,
+				245B4461214A800A00159854 /* Reachability.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -234,6 +242,7 @@
 		F54DEAF74B06B1B73BFE2C4F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				245B4464214A804800159854 /* SystemConfiguration.framework */,
 				2412370E2147AAA3004EADAD /* libsqlite3.0.tbd */,
 				DD3AABCECAC84F39F71D82BA /* libPods-MoviesApp.a */,
 			);
@@ -428,6 +437,7 @@
 				24C6D8E3213DF2670059D055 /* main.m in Sources */,
 				245E2DF8213FE6440049F944 /* FavoritesCollectionViewController.m in Sources */,
 				24CC9A2121413EA2006DC240 /* YoutubeViewController.m in Sources */,
+				245B4463214A800C00159854 /* Reachability.m in Sources */,
 				24C6D8D5213DF2670059D055 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

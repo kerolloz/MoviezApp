@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Movie.h"
 #import "MovieDetailsDelegate.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "YoutubeViewController.h"
+#import <sqlite3.h>
+#import "Reachability.h"
 
 @interface MovieDetailsViewController : UIViewController <MovieDetailsDelegate, UITableViewDelegate, UITableViewDataSource>
     // naming convention
