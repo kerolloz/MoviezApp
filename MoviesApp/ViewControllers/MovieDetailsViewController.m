@@ -304,7 +304,10 @@
         }
         sqlite3_close(_contactDB);
     }
-    [self.movieReviewsTableView reloadData];
+    if(self.reviews.count)
+        [self.movieReviewsTableView reloadData];
+    else
+        [self.movieReviewsTableView removeFromSuperview];
 }
 
 -(void)fetchTrailersFromDB{
@@ -346,7 +349,10 @@
         }
         sqlite3_close(_contactDB);
     }
-    [self.movieTrailersTableView reloadData];
+    if(self.trailers.count)
+        [self.movieTrailersTableView reloadData];
+    else
+        [self.movieTrailersTableView removeFromSuperview];
 }
 
 
