@@ -40,13 +40,52 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="CD0-2I-ddu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Rz3-uk-cIo">
                             <size key="itemSize" width="164" height="206"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
+                        <view key="backgroundView" contentMode="scaleToFill" id="INf-26-cRJ">
+                            <rect key="frame" x="0.0" y="-64" width="320" height="568"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background.png" translatesAutoresizingMaskIntoConstraints="NO" id="d9r-eG-mEJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                </imageView>
+                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mdm-un-Aff">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="fLS-ak-TCL">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wBz-cZ-5Xi">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="6R8-l6-Jyg">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                                <blurEffect style="prominent"/>
+                                            </visualEffectView>
+                                        </subviews>
+                                    </view>
+                                    <blurEffect style="light"/>
+                                </visualEffectView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="d9r-eG-mEJ" firstAttribute="leading" secondItem="INf-26-cRJ" secondAttribute="leading" id="2Fy-hp-uff"/>
+                                <constraint firstAttribute="bottom" secondItem="mdm-un-Aff" secondAttribute="bottom" id="7kh-A3-qwt"/>
+                                <constraint firstItem="mdm-un-Aff" firstAttribute="top" secondItem="INf-26-cRJ" secondAttribute="top" id="CWE-JV-Cf0"/>
+                                <constraint firstItem="d9r-eG-mEJ" firstAttribute="top" secondItem="INf-26-cRJ" secondAttribute="top" id="QOJ-KR-ORX"/>
+                                <constraint firstAttribute="trailing" secondItem="d9r-eG-mEJ" secondAttribute="trailing" id="U6J-kN-wai"/>
+                                <constraint firstItem="mdm-un-Aff" firstAttribute="leading" secondItem="INf-26-cRJ" secondAttribute="leading" id="WUi-lD-oA9"/>
+                                <constraint firstAttribute="bottom" secondItem="d9r-eG-mEJ" secondAttribute="bottom" id="dAq-bM-l5a"/>
+                                <constraint firstAttribute="trailing" secondItem="mdm-un-Aff" secondAttribute="trailing" id="icV-Is-FKf"/>
+                            </constraints>
+                            <viewLayoutGuide key="safeArea" id="ByF-IT-JyX"/>
+                        </view>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="Cell" id="4zM-k7-c8s">
                                 <rect key="frame" x="0.0" y="0.0" width="130" height="206"/>
@@ -115,7 +154,7 @@
                     <viewLayoutGuide key="safeArea" id="gUy-jO-Sr1"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="1403" y="-158"/>
+            <point key="canvasLocation" x="1402.5" y="-158.45070422535213"/>
         </scene>
         <!--Movie Details View Controller-->
         <scene sceneID="gma-Wd-1ou">
@@ -276,13 +315,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bGI-u8-KQH" customClass="YTPlayerView">
-                                <rect key="frame" x="0.0" y="63" width="320" height="505"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bGI-u8-KQH" customClass="YTPlayerView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bGI-u8-KQH" firstAttribute="trailing" secondItem="5PC-wz-oo5" secondAttribute="trailing" id="Re7-Bx-M0E"/>
+                            <constraint firstItem="bGI-u8-KQH" firstAttribute="bottom" secondItem="5PC-wz-oo5" secondAttribute="bottom" id="Vdp-MC-iuU"/>
+                            <constraint firstItem="bGI-u8-KQH" firstAttribute="leading" secondItem="5PC-wz-oo5" secondAttribute="leading" id="vFw-BH-jVW"/>
+                            <constraint firstItem="bGI-u8-KQH" firstAttribute="top" secondItem="cXq-RY-STR" secondAttribute="top" id="xhQ-Zi-2aK"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="5PC-wz-oo5"/>
                     </view>
                     <connections>
@@ -326,6 +370,46 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
+                        <view key="backgroundView" contentMode="scaleToFill" id="kWC-m9-yd1">
+                            <rect key="frame" x="0.0" y="-64" width="320" height="568"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background.png" translatesAutoresizingMaskIntoConstraints="NO" id="tfw-R9-M8P">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                </imageView>
+                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="299-eN-1cB">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="XQJ-tO-B2d">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Smy-GY-ecW">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="C0c-ST-W83">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                                <blurEffect style="prominent"/>
+                                            </visualEffectView>
+                                        </subviews>
+                                    </view>
+                                    <blurEffect style="light"/>
+                                </visualEffectView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="tfw-R9-M8P" firstAttribute="top" secondItem="kWC-m9-yd1" secondAttribute="top" id="0Bg-ci-QQG"/>
+                                <constraint firstAttribute="trailing" secondItem="299-eN-1cB" secondAttribute="trailing" id="8AW-eU-Npu"/>
+                                <constraint firstItem="299-eN-1cB" firstAttribute="leading" secondItem="kWC-m9-yd1" secondAttribute="leading" id="C86-uv-gPD"/>
+                                <constraint firstAttribute="trailing" secondItem="tfw-R9-M8P" secondAttribute="trailing" id="EDX-B9-Ra3"/>
+                                <constraint firstItem="tfw-R9-M8P" firstAttribute="leading" secondItem="kWC-m9-yd1" secondAttribute="leading" id="Ktf-VB-BK2"/>
+                                <constraint firstAttribute="bottom" secondItem="tfw-R9-M8P" secondAttribute="bottom" id="k4c-Ea-ihi"/>
+                                <constraint firstItem="299-eN-1cB" firstAttribute="top" secondItem="kWC-m9-yd1" secondAttribute="top" id="uUQ-Tk-FVy"/>
+                                <constraint firstAttribute="bottom" secondItem="299-eN-1cB" secondAttribute="bottom" id="uyT-ny-cFw"/>
+                            </constraints>
+                            <viewLayoutGuide key="safeArea" id="6oA-8o-hkB"/>
+                        </view>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="bBj-dR-qQQ">
                                 <rect key="frame" x="78" y="0.0" width="164" height="206"/>
@@ -392,10 +476,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Background.png" width="1242" height="2208"/>
         <image name="FavTab.png" width="30" height="30"/>
         <image name="HomeTab.png" width="30" height="30"/>
         <image name="highestRated.png" width="324" height="106"/>
         <image name="mostPopular.png" width="324" height="106"/>
         <image name="nonStarred.png" width="210" height="194"/>
     </resources>
+    <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
 </document>
