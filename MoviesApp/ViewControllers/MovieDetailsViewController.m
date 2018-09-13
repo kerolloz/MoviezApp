@@ -342,5 +342,9 @@
     }
 
 }
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if([tableView isEqual:self.movieTrailersTableView]) return @"Trailers";
+    else return @"Reviews";
+}
 
 @end
