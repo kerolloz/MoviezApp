@@ -8,9 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		24057D5221404755005B7AD7 /* api.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24057D5121404755005B7AD7 /* api.plist */; };
-		240B1FA921473926005E79C4 /* launcScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 240B1FA821473926005E79C4 /* launcScreen.png */; };
-		2412370321479D46004EADAD /* movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 2412370221479D46004EADAD /* movie.png */; };
-		2412370D21479E29004EADAD /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 2412370C21479E29004EADAD /* star.png */; };
+		240A592B214955F80069119C /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 240A592A214955F80069119C /* star.png */; };
+		240A592F214956CA0069119C /* movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 240A592E214956CA0069119C /* movie.png */; };
 		2412370F2147AAA4004EADAD /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2412370E2147AAA3004EADAD /* libsqlite3.0.tbd */; };
 		241237132147DB2C004EADAD /* nonStarred.png in Resources */ = {isa = PBXBuildFile; fileRef = 241237122147DB2C004EADAD /* nonStarred.png */; };
 		244CDB5C213E4EB900E47683 /* HomeTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 244CDB5B213E4EB800E47683 /* HomeTab.png */; };
@@ -23,7 +22,6 @@
 		24C6D8D8213DF2670059D055 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6D8D7213DF2670059D055 /* ViewController.m */; };
 		24C6D8DB213DF2670059D055 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24C6D8D9213DF2670059D055 /* Main.storyboard */; };
 		24C6D8DD213DF2670059D055 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24C6D8DC213DF2670059D055 /* Assets.xcassets */; };
-		24C6D8E0213DF2670059D055 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24C6D8DE213DF2670059D055 /* LaunchScreen.storyboard */; };
 		24C6D8E3213DF2670059D055 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6D8E2213DF2670059D055 /* main.m */; };
 		24C6D8ED213DF2670059D055 /* MoviesAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6D8EC213DF2670059D055 /* MoviesAppTests.m */; };
 		24C6D8F8213DF2670059D055 /* MoviesAppUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6D8F7213DF2670059D055 /* MoviesAppUITests.m */; };
@@ -52,9 +50,8 @@
 
 /* Begin PBXFileReference section */
 		24057D5121404755005B7AD7 /* api.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = api.plist; sourceTree = "<group>"; };
-		240B1FA821473926005E79C4 /* launcScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launcScreen.png; sourceTree = "<group>"; };
-		2412370221479D46004EADAD /* movie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movie.png; sourceTree = "<group>"; };
-		2412370C21479E29004EADAD /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		240A592A214955F80069119C /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		240A592E214956CA0069119C /* movie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movie.png; sourceTree = "<group>"; };
 		2412370E2147AAA3004EADAD /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		241237122147DB2C004EADAD /* nonStarred.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nonStarred.png; sourceTree = "<group>"; };
 		244CDB5B213E4EB800E47683 /* HomeTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeTab.png; sourceTree = "<group>"; };
@@ -74,7 +71,6 @@
 		24C6D8D7213DF2670059D055 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		24C6D8DA213DF2670059D055 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		24C6D8DC213DF2670059D055 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		24C6D8DF213DF2670059D055 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		24C6D8E1213DF2670059D055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24C6D8E2213DF2670059D055 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		24C6D8E8213DF2670059D055 /* MoviesAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,7 +146,6 @@
 				24CC9A232141452B006DC240 /* ViewControllers */,
 				24CC9A2221414519006DC240 /* Model */,
 				24C6D8D9213DF2670059D055 /* Main.storyboard */,
-				24C6D8DE213DF2670059D055 /* LaunchScreen.storyboard */,
 				247B6AFB21409F2E00E85BC5 /* MovieDetailsDelegate.h */,
 				24057D5121404755005B7AD7 /* api.plist */,
 				24C6D8E1213DF2670059D055 /* Info.plist */,
@@ -218,11 +213,10 @@
 			children = (
 				244E615B2146F4AE00D9F40F /* highestRated.png */,
 				244E615C2146F4AE00D9F40F /* mostPopular.png */,
-				2412370221479D46004EADAD /* movie.png */,
+				240A592E214956CA0069119C /* movie.png */,
+				240A592A214955F80069119C /* star.png */,
 				244CDB5B213E4EB800E47683 /* HomeTab.png */,
 				241237122147DB2C004EADAD /* nonStarred.png */,
-				2412370C21479E29004EADAD /* star.png */,
-				240B1FA821473926005E79C4 /* launcScreen.png */,
 				2483B7BB213F1DAC0060FF69 /* FavTab.png */,
 			);
 			path = Images;
@@ -355,16 +349,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				24057D5221404755005B7AD7 /* api.plist in Resources */,
-				2412370321479D46004EADAD /* movie.png in Resources */,
-				24C6D8E0213DF2670059D055 /* LaunchScreen.storyboard in Resources */,
-				240B1FA921473926005E79C4 /* launcScreen.png in Resources */,
+				240A592B214955F80069119C /* star.png in Resources */,
 				244E615D2146F4AE00D9F40F /* highestRated.png in Resources */,
 				244CDB5C213E4EB900E47683 /* HomeTab.png in Resources */,
 				24C6D8DD213DF2670059D055 /* Assets.xcassets in Resources */,
 				24C6D8DB213DF2670059D055 /* Main.storyboard in Resources */,
+				240A592F214956CA0069119C /* movie.png in Resources */,
 				244E615E2146F4AE00D9F40F /* mostPopular.png in Resources */,
 				241237132147DB2C004EADAD /* nonStarred.png in Resources */,
-				2412370D21479E29004EADAD /* star.png in Resources */,
 				2483B7BC213F1DAC0060FF69 /* FavTab.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,14 +472,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		24C6D8DE213DF2670059D055 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				24C6D8DF213DF2670059D055 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -600,6 +584,7 @@
 			baseConfigurationReference = 245F8408D485720D8671DA0F /* Pods-MoviesApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = MoviesApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -614,6 +599,7 @@
 			baseConfigurationReference = 702D8833CFACC0A6D23E6A3D /* Pods-MoviesApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = MoviesApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

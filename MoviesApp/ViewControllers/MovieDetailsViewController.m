@@ -256,13 +256,22 @@
 
 -(void)setMyTrailers:(NSArray*) trailers{
     self.trailers = trailers;
-    NSLog(@"trailers: %@", trailers);
-    [self.movieTrailersTableView reloadData];
+    if([self.trailers count]){
+        [self.movieTrailersTableView reloadData];
+    }else{
+        // no trailers available
+        [self.movieTrailersTableView removeFromSuperview];
+    }
+        
 }
 
 -(void)setMyReviews:(NSArray*) reviews{
     self.reviews = reviews;
-    [self.movieReviewsTableView reloadData];
+    if([self.reviews count])
+        [self.movieReviewsTableView reloadData];
+    else
+        [self.movieReviewsTableView removeFromSuperview];
+    
 }
 
 

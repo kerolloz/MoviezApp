@@ -178,5 +178,9 @@ static NSString * const reuseIdentifier = @"Cell";
     
 }
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.moviesSortedByView removeFromSuperview];
+}
+
 
 @end
