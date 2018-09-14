@@ -15,6 +15,10 @@
 @implementation YoutubeViewController
 
 - (void)viewDidLoad {
+    self.tabBarController.tabBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
+    self.navigationController.navigationBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
+    [[UIView appearance] setTintColor:([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? [UIColor blackColor] : [UIColor clearColor]];
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.playerView loadWithVideoId:self.videoKey];

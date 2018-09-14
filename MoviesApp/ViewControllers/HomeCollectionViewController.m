@@ -31,6 +31,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     self.menuOptions = @[@"Movies Sorted By:", @"Most Popular", @"Highest Rated", @"Night Mode 🌙"];
     //  ************************** Right Menu *******************************
@@ -81,6 +82,9 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    self.tabBarController.tabBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
+    self.navigationController.navigationBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
+    [[UIView appearance] setTintColor:([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? [UIColor whiteColor] : [UIColor blackColor]];
     self.width = [UIScreen mainScreen].bounds.size.width/2;
     self.height = [UIScreen mainScreen].bounds.size.height/2;
     [self.collectionView reloadData];
@@ -359,7 +363,10 @@ static NSString * const reuseIdentifier = @"Cell";
                                                              menuWidth,
                                                              self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height)];
     
-    self.menuView.backgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
+    //change here
+    self.menuView.backgroundColor = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])?[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]: [UIColor whiteColor];
+    
+    
     [self.view addSubview:self.menuView];
     // Setup the table view.
     self.menuTable = [[UITableView alloc] initWithFrame:self.menuView.bounds
@@ -448,12 +455,30 @@ static NSString * const reuseIdentifier = @"Cell";
     cell.backgroundColor = [UIColor clearColor];
     if(indexPath.row == self.menuOptions.count-1){
         UISwitch *switchController = [[UISwitch alloc] initWithFrame:CGRectZero];
-        [switchController setOn:YES animated:YES];
+        [switchController setOn:([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? YES : NO
+                       animated:YES];
         switchController.tag = indexPath.row;
         cell.accessoryView = switchController;
+        [switchController addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
     }
 
     return cell;
+}
+
+-(void)switchChanged:(id)sender{
+    UISwitch *switchController = sender;
+    if([switchController isOn]){
+        //night mode ACTIVATED (black)
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NightMode"];
+    }else{
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NightMode"];
+    }
+    self.tabBarController.tabBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
+    self.navigationController.navigationBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
+    self.navigationController.navigationItem.rightBarButtonItem.tintColor = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? [UIColor whiteColor] : [UIColor blackColor];
+  [[UIView appearance] setTintColor:([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? [UIColor whiteColor] : [UIColor blackColor]];
+    
+    self.menuView.backgroundColor =([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])?[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]: [UIColor whiteColor];
 }
 
 
