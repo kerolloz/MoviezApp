@@ -13,6 +13,7 @@
 		2412370F2147AAA4004EADAD /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2412370E2147AAA3004EADAD /* libsqlite3.0.tbd */; };
 		241237132147DB2C004EADAD /* nonStarred.png in Resources */ = {isa = PBXBuildFile; fileRef = 241237122147DB2C004EADAD /* nonStarred.png */; };
 		2413FD1D214B099B007BDBBD /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 2413FD1C214B099B007BDBBD /* Background.png */; };
+		2413FD2F214B1BBE007BDBBD /* sort.png in Resources */ = {isa = PBXBuildFile; fileRef = 2413FD2E214B1BBE007BDBBD /* sort.png */; };
 		244CDB5C213E4EB900E47683 /* HomeTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 244CDB5B213E4EB800E47683 /* HomeTab.png */; };
 		244E615D2146F4AE00D9F40F /* highestRated.png in Resources */ = {isa = PBXBuildFile; fileRef = 244E615B2146F4AE00D9F40F /* highestRated.png */; };
 		244E615E2146F4AE00D9F40F /* mostPopular.png in Resources */ = {isa = PBXBuildFile; fileRef = 244E615C2146F4AE00D9F40F /* mostPopular.png */; };
@@ -58,6 +59,7 @@
 		2412370E2147AAA3004EADAD /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		241237122147DB2C004EADAD /* nonStarred.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nonStarred.png; sourceTree = "<group>"; };
 		2413FD1C214B099B007BDBBD /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
+		2413FD2E214B1BBE007BDBBD /* sort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sort.png; sourceTree = "<group>"; };
 		244CDB5B213E4EB800E47683 /* HomeTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeTab.png; sourceTree = "<group>"; };
 		244E615B2146F4AE00D9F40F /* highestRated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highestRated.png; sourceTree = "<group>"; };
 		244E615C2146F4AE00D9F40F /* mostPopular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mostPopular.png; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				240A592E214956CA0069119C /* movie.png */,
 				240A592A214955F80069119C /* star.png */,
 				241237122147DB2C004EADAD /* nonStarred.png */,
+				2413FD2E214B1BBE007BDBBD /* sort.png */,
 				244E615B2146F4AE00D9F40F /* highestRated.png */,
 				244E615C2146F4AE00D9F40F /* mostPopular.png */,
 				244CDB5B213E4EB800E47683 /* HomeTab.png */,
@@ -371,6 +374,7 @@
 				2413FD1D214B099B007BDBBD /* Background.png in Resources */,
 				241237132147DB2C004EADAD /* nonStarred.png in Resources */,
 				2483B7BC213F1DAC0060FF69 /* FavTab.png in Resources */,
+				2413FD2F214B1BBE007BDBBD /* sort.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,7 +16,8 @@
 @property NSDictionary *apiPlistDictionary;
 @property (strong , nonatomic) NSString *databasePath;
 @property (nonatomic) sqlite3 *contactDB;
-    
+@property (weak, nonatomic) IBOutlet UILabel *noMoviesLabel;
+
 @end
 
 @implementation FavoritesCollectionViewController
@@ -39,6 +40,8 @@ static NSString * const reuseIdentifier = @"Cell";
     self.moviesArray = [NSMutableArray new];
     [self fetchMoviesFromDataBase];
     [self.collectionView reloadData];
+    if(self.moviesArray.count) _noMoviesLabel.hidden = YES;
+    else _noMoviesLabel.hidden = NO;
 }
 
 -(void)intializeDataBase{

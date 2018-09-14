@@ -110,7 +110,6 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="t6y-9I-msU">
                         <barButtonItem key="rightBarButtonItem" title="Sort" id="Tdo-Y3-zAH">
-                            <inset key="imageInsets" minX="-36" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <connections>
                                 <action selector="sortButtonPressed:" destination="tQ4-YC-hiY" id="aDN-IL-cs1"/>
                             </connections>
@@ -389,6 +388,20 @@
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="C0c-ST-W83">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="No Favorite Movies!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RRy-Ix-dgh">
+                                                            <rect key="frame" x="82" y="273" width="156" height="22"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <color key="shadowColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                                            <size key="shadowOffset" width="1" height="1"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="RRy-Ix-dgh" firstAttribute="centerX" secondItem="C0c-ST-W83" secondAttribute="centerX" id="Hdi-Tx-5Nd"/>
+                                                        <constraint firstItem="RRy-Ix-dgh" firstAttribute="centerY" secondItem="C0c-ST-W83" secondAttribute="centerY" id="ugJ-08-3ff"/>
+                                                    </constraints>
                                                 </view>
                                                 <blurEffect style="prominent"/>
                                             </visualEffectView>
@@ -432,6 +445,9 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="Zcg-uy-Kdh"/>
+                    <connections>
+                        <outlet property="noMoviesLabel" destination="RRy-Ix-dgh" id="Igt-GL-Hul"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VOb-kL-fUx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -483,5 +499,5 @@
         <image name="mostPopular.png" width="324" height="106"/>
         <image name="nonStarred.png" width="210" height="194"/>
     </resources>
-    <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
