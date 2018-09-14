@@ -15,15 +15,17 @@
 @implementation YoutubeViewController
 
 - (void)viewDidLoad {
-    self.tabBarController.tabBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
-    self.navigationController.navigationBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
-    [[UIView appearance] setTintColor:([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? [UIColor blackColor] : [UIColor clearColor]];
+    
     
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.playerView loadWithVideoId:self.videoKey];
 }
 -(void)viewWillAppear:(BOOL)animated{
+    self.tabBarController.tabBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
+    self.navigationController.navigationBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
+    self.navigationController.navigationItem.rightBarButtonItem.tintColor = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? [UIColor whiteColor] : [UIColor blackColor];
+    [[UIView appearance] setTintColor:([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? [UIColor whiteColor] : [UIColor blackColor]];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
 }

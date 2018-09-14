@@ -64,6 +64,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
     self.navigationController.navigationBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
+    self.navigationController.navigationItem.rightBarButtonItem.tintColor = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? [UIColor whiteColor] : [UIColor blackColor];
+    [[UIView appearance] setTintColor:([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? [UIColor whiteColor] : [UIColor blackColor]];
     
     [self fetchMovieFromDB];
     if(self.myMovie.isFav){
