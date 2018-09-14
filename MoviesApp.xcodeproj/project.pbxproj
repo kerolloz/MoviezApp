@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		24057D5221404755005B7AD7 /* api.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24057D5121404755005B7AD7 /* api.plist */; };
 		240871D0214BA1FF00216E8D /* menuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 240871CF214BA1FF00216E8D /* menuViewController.m */; };
+		240871D2214BC7DD00216E8D /* settings(1).png in Resources */ = {isa = PBXBuildFile; fileRef = 240871D1214BC7DD00216E8D /* settings(1).png */; };
 		240A592B214955F80069119C /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 240A592A214955F80069119C /* star.png */; };
 		240A592F214956CA0069119C /* movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 240A592E214956CA0069119C /* movie.png */; };
 		2412370F2147AAA4004EADAD /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2412370E2147AAA3004EADAD /* libsqlite3.0.tbd */; };
@@ -57,6 +58,7 @@
 		24057D5121404755005B7AD7 /* api.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = api.plist; sourceTree = "<group>"; };
 		240871CE214BA1FF00216E8D /* menuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = menuViewController.h; sourceTree = "<group>"; };
 		240871CF214BA1FF00216E8D /* menuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = menuViewController.m; sourceTree = "<group>"; };
+		240871D1214BC7DD00216E8D /* settings(1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings(1).png"; sourceTree = "<group>"; };
 		240A592A214955F80069119C /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		240A592E214956CA0069119C /* movie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movie.png; sourceTree = "<group>"; };
 		2412370E2147AAA3004EADAD /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -233,6 +235,7 @@
 				240A592A214955F80069119C /* star.png */,
 				241237122147DB2C004EADAD /* nonStarred.png */,
 				2413FD2E214B1BBE007BDBBD /* sort.png */,
+				240871D1214BC7DD00216E8D /* settings(1).png */,
 				244E615B2146F4AE00D9F40F /* highestRated.png */,
 				244E615C2146F4AE00D9F40F /* mostPopular.png */,
 				244CDB5B213E4EB800E47683 /* HomeTab.png */,
@@ -376,6 +379,7 @@
 				24C6D8DB213DF2670059D055 /* Main.storyboard in Resources */,
 				240A592F214956CA0069119C /* movie.png in Resources */,
 				244E615E2146F4AE00D9F40F /* mostPopular.png in Resources */,
+				240871D2214BC7DD00216E8D /* settings(1).png in Resources */,
 				2413FD1D214B099B007BDBBD /* Background.png in Resources */,
 				241237132147DB2C004EADAD /* nonStarred.png in Resources */,
 				2483B7BC213F1DAC0060FF69 /* FavTab.png in Resources */,

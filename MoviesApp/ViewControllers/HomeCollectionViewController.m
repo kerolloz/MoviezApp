@@ -15,7 +15,6 @@
 @property CGFloat height;
 @property NSMutableArray *moviesArray; // of dictionaries
 @property NSDictionary *apiPlistDictionary;
-@property (strong, nonatomic) IBOutlet UIView *moviesSortedByView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sortButton;
 @property BOOL isInSortView;
 @property (strong , nonatomic) NSString *databasePath;
@@ -59,7 +58,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.isInSortView = 0;
     
     
-    self.moviesSortedByView.layer.cornerRadius = 5;
+    
     
     
     self.moviesArray = [NSMutableArray new]; // dumb object
@@ -414,7 +413,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return [self.menuOptions count];
 }
 
 
