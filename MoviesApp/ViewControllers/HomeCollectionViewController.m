@@ -20,6 +20,7 @@
 @property BOOL isInSortView;
 @property (strong , nonatomic) NSString *databasePath;
 @property (nonatomic) sqlite3 *contactDB;
+@property NSArray *menuOptions;
 
 @end
 
@@ -32,7 +33,22 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.menuOptions = @[@"Movies Sorted By:", @"Most Popular", @"Highest Rated", @"Night Mode 🌙"];
+    //  ************************** Right Menu *******************************
+    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    
+    UISwipeGestureRecognizer *hideMenuGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                          action:@selector(handleGesture:)];
+    hideMenuGesture.direction = UISwipeGestureRecognizerDirectionRight ;
+    [self.view addGestureRecognizer:hideMenuGesture];
 
+    UISwipeGestureRecognizer *showMenuGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                          action:@selector(handleGesture:)];
+    showMenuGesture.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:showMenuGesture];
+    
+    [self setupMenuView];
+    //  ******************************************************************
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"api" ofType:@"plist"];
     self.apiPlistDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
@@ -46,7 +62,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.moviesSortedByView.layer.cornerRadius = 5;
     
     
-    self.moviesArray = [[NSMutableArray alloc] initWithObjects:@"", nil]; // dumb object
+    self.moviesArray = [NSMutableArray new]; // dumb object
     
     self.width = [UIScreen mainScreen].bounds.size.width/2;
     self.height = [UIScreen mainScreen].bounds.size.height/2;
@@ -249,59 +265,26 @@ static NSString * const reuseIdentifier = @"Cell";
             self.moviesArray = [responseObject valueForKey:@"results"];
             [self.collectionView reloadData];
             [self addFetchedMoviesToDataBase];
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }else{
             // show alert here with the error message
             NSLog(@"%@", error); // error is null when the data is fetched successfuly
         }
     }];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [dataTask resume];
 }
 
 - (IBAction)sortButtonPressed:(id)sender {
     // show the view
     // animate in
-    self.isInSortView = 1;
-    [self.collectionView setScrollEnabled:NO];
-    
-    [self.view addSubview:self.moviesSortedByView];
-    
-    self.moviesSortedByView.center = self.view.center;
-    self.moviesSortedByView.transform = CGAffineTransformMakeScale(1.3, 1.3);
-    self.moviesSortedByView.alpha = 0;
-    
-    [UIView animateWithDuration:0.4 animations:^(){
-        self.moviesSortedByView.alpha = 1;
-        self.moviesSortedByView.transform = CGAffineTransformIdentity;
-        
-    }];
-    
-    
-}
-
-- (IBAction)sortMethodChosen:(id)sender { // hide the view
-   
-    // ***** Tags *****
-    // 1 most popular
-    // 2 highest rated
-    // ****************
-   
-    [self.moviesSortedByView removeFromSuperview];
-    
-    if([sender tag] == 1){
-        
-        [[NSUserDefaults standardUserDefaults] setValue:@"discoverMostPopular" forKey:@"sortedBy"];
-        
-    }else if ([sender tag] == 2){
-        
-        [[NSUserDefaults standardUserDefaults] setValue:@"discoverHighestRated" forKey:@"sortedBy"];
-        
+    if(!self.isInSortView){
+        [self toggleMenu:YES];
+        self.isInSortView = 1;
+    }else{
+        [self toggleMenu:NO];
+        self.isInSortView = 0;
     }
-    
-    // once out of sort view, you can select a movie
-    self.isInSortView = 0;
-    [self.collectionView setScrollEnabled:YES];
-    
-    [self checkInternetConnectivity];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -324,6 +307,7 @@ static NSString * const reuseIdentifier = @"Cell";
         NSString *posterURL = [NSString stringWithFormat:moviePosterURLFormat, posterPath];
         [image sd_setImageWithURL:[NSURL URLWithString:posterURL]
                  placeholderImage:[UIImage imageNamed:@"movie.png"]];
+        
     }
   
     return cell;
@@ -343,6 +327,162 @@ static NSString * const reuseIdentifier = @"Cell";
         [self.navigationController pushViewController:movie animated:YES];
     }
     
+}
+
+
+-(void)handleGesture:(UISwipeGestureRecognizer *)gesture{
+    if (!self.isInSortView && gesture.direction == UISwipeGestureRecognizerDirectionLeft) {
+        [self toggleMenu:YES];
+        self.isInSortView = 1;
+    }
+    else if (self.isInSortView && gesture.direction == UISwipeGestureRecognizerDirectionRight){
+        [self toggleMenu:NO];
+        self.isInSortView = 0;
+    }
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if(self.isInSortView){
+        [self toggleMenu:NO];
+        self.isInSortView = 0;
+    }
+}
+
+-(void)setupMenuView{
+    // Setup the background view.
+    self.backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
+    self.backgroundView.backgroundColor = [UIColor lightGrayColor];
+    self.backgroundView.alpha = 0.0;
+    [self.view addSubview:self.backgroundView];
+    // Setup the menu view.
+    self.menuView = [[UIView alloc] initWithFrame:CGRectMake(self.tabBarController.tabBar.frame.size.width + 10,
+                                self.navigationController.navigationBar.frame.size.height+20,
+                                                             menuWidth,
+                                                             self.view.frame.size.height - self.tabBarController.tabBar.frame.size.height)];
+    
+    self.menuView.backgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
+    [self.view addSubview:self.menuView];
+    // Setup the table view.
+    self.menuTable = [[UITableView alloc] initWithFrame:self.menuView.bounds
+                                                  style:UITableViewStylePlain];
+    self.menuTable.backgroundColor = [UIColor clearColor];
+    self.menuTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.menuTable.scrollEnabled = NO;
+    self.menuTable.alpha = 1.0;
+    
+    self.menuTable.delegate = self;
+    self.menuTable.dataSource = self;
+    
+    [self.menuTable reloadData];
+    
+    [self.menuView addSubview:self.menuTable];
+}
+-(void)toggleMenu:(BOOL)shouldOpenMenu{
+    [self.animator removeAllBehaviors];
+    
+    CGFloat gravityDirectionX = (shouldOpenMenu) ? -1.0 : 1.0;
+    CGFloat pushMagnitude = (shouldOpenMenu) ? -20.0 : 20.0;
+    CGFloat boundaryPointX = (shouldOpenMenu) ? self.tabBarController.tabBar.frame.size.width-menuWidth : self.tabBarController.tabBar.frame.size.width+menuWidth;
+    
+    UIGravityBehavior *gravityBehavior = [[UIGravityBehavior alloc] initWithItems:@[self.menuView]];
+    gravityBehavior.gravityDirection = CGVectorMake(gravityDirectionX, 0.0);
+    [self.animator addBehavior:gravityBehavior];
+    
+    
+    UICollisionBehavior *collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[self.menuView]];
+    [collisionBehavior addBoundaryWithIdentifier:@"menuBoundary"
+                                       fromPoint:CGPointMake(boundaryPointX, 20.0)
+                                         toPoint:CGPointMake(boundaryPointX, self.tabBarController.tabBar.frame.origin.y)];
+    [self.animator addBehavior:collisionBehavior];
+    
+    
+    UIPushBehavior *pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.menuView]
+                                                                    mode:UIPushBehaviorModeInstantaneous];
+    pushBehavior.magnitude = pushMagnitude;
+    [self.animator addBehavior:pushBehavior];
+    
+    
+    UIDynamicItemBehavior *menuViewBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.menuView]];
+    menuViewBehavior.elasticity = 0.4;
+    [self.animator addBehavior:menuViewBehavior];
+    
+    self.backgroundView.alpha = (shouldOpenMenu) ? 0.5 : 0.0;
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 4;
+}
+
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+    }
+    NSString *sortMethod = [[NSUserDefaults standardUserDefaults] objectForKey:@"sortedBy"];
+    
+    cell.textLabel.text = [self.menuOptions objectAtIndex:indexPath.row];
+    
+    if(indexPath.row == 1 && [sortMethod isEqualToString:@"discoverMostPopular"]){
+        [[tableView cellForRowAtIndexPath:indexPath] setSelected:YES];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", cell.textLabel.text, @"✅"];
+    }else if(indexPath.row == 2 && [sortMethod isEqualToString:@"discoverHighestRated"]){
+        [[tableView cellForRowAtIndexPath:indexPath] setSelected:YES];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", cell.textLabel.text, @"✅"];
+    }else{
+        [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
+    }
+    
+   
+    cell.textLabel.textColor = [UIColor lightGrayColor];
+    cell.textLabel.font = [UIFont fontWithName:@"Futura" size:13.0];
+    cell.textLabel.textAlignment = NSTextAlignmentCenter;
+
+    if(indexPath.row == 0 || indexPath.row == 3){
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    cell.backgroundColor = [UIColor clearColor];
+    if(indexPath.row == self.menuOptions.count-1){
+        UISwitch *switchController = [[UISwitch alloc] initWithFrame:CGRectZero];
+        [switchController setOn:YES animated:YES];
+        switchController.tag = indexPath.row;
+        cell.accessoryView = switchController;
+    }
+
+    return cell;
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50.0;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
+    if(indexPath.row == 1){
+        [[NSUserDefaults standardUserDefaults] setValue:@"discoverMostPopular" forKey:@"sortedBy"];
+        [self checkInternetConnectivity];
+        [self toggleMenu:NO];
+        self.isInSortView = 0;
+        [tableView cellForRowAtIndexPath:indexPath].textLabel.text = [NSString stringWithFormat:@"%@ %@", [self.menuOptions objectAtIndex:indexPath.row], @"✅"];
+        [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]].textLabel.text = [self.menuOptions objectAtIndex:[NSIndexPath indexPathForRow:2 inSection:0].row];
+    }
+    else if(indexPath.row == 2){
+        [[NSUserDefaults standardUserDefaults] setValue:@"discoverHighestRated" forKey:@"sortedBy"];
+        [self checkInternetConnectivity];
+        [self toggleMenu:NO];
+        self.isInSortView = 0;
+        [tableView cellForRowAtIndexPath:indexPath].textLabel.text = [NSString stringWithFormat:@"%@ %@", [self.menuOptions objectAtIndex:indexPath.row], @"✅"];
+        [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]].textLabel.text = [self.menuOptions objectAtIndex:[NSIndexPath indexPathForRow:1 inSection:0].row];
+
+    }
 }
 
 

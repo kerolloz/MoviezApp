@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "378569A2BC817CF599F71D7D14F31F78"
-               BlueprintName = "TYMProgressBarView"
+               BlueprintIdentifier = "B609F12318C90168431C03FF7DFD198F"
+               BlueprintName = "LGSideMenuController"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "libTYMProgressBarView.a">
+               BuildableName = "libLGSideMenuController.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -63,6 +63,8 @@
     NSURLSessionDataTask *dataTask = [[self getSessionManager] dataTaskWithRequest:[self requestPrepearForKey:@"movieTrailerURLFormat"] uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError* error){
         // responseObject holds the data we want
         // responseObject is a dictionary so we need to extract the results arrray from it
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         if(!error){
             
             self.trailers = [responseObject objectForKey:@"results"];
@@ -73,6 +75,8 @@
             NSLog(@"%@", error); // error is null when the data is fetched successfuly
         }
     }];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [dataTask resume];
 }
 
@@ -83,6 +87,8 @@
     NSURLSessionDataTask *dataTask = [[self getSessionManager] dataTaskWithRequest:[self requestPrepearForKey:@"movieReviewsURLFormat"] uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError* error){
         // responseObject holds the data we want
         // responseObject is a dictionary so we need to extract the results arrray from it
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             if(!error){
                 self.reviews = [responseObject objectForKey:@"results"];
                 [self.movieDelegate setMyReviews:self.reviews];
@@ -92,6 +98,8 @@
             }
         }
     ];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [dataTask resume];
     
 }
@@ -102,6 +110,8 @@
     NSURLSessionDataTask *dataTask = [[self getSessionManager] dataTaskWithRequest:[self requestPrepearForKey:@"movieInfoURLFormat"] uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError* error){
         // responseObject holds the data we want
         // responseObject is a dictionary so we need to extract the results arrray from it
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         if(!error){
            
             if([responseObject objectForKey:@"runtime"] && [responseObject objectForKey:@"runtime"] != [NSNull null]){
@@ -113,15 +123,21 @@
             NSLog(@"%@", error); // error is null when the data is fetched successfuly
         }
     }];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [dataTask resume];
 }
 
 -(void)bringPosterWithPosterPath: (NSString*)posterPath{
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     self.posterPath = posterPath;
     NSString *moviePosterURL = [NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"moviePosterURLFormat"], posterPath];
     UIImageView *imgView = [UIImageView new];
     [imgView sd_setImageWithURL:[NSURL URLWithString:moviePosterURL]];
     self.poster = [imgView image];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 @end

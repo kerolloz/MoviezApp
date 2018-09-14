@@ -19,6 +19,13 @@
     // Do any additional setup after loading the view.
     [self.playerView loadWithVideoId:self.videoKey];
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+}
 
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		24057D5221404755005B7AD7 /* api.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24057D5121404755005B7AD7 /* api.plist */; };
+		240871D0214BA1FF00216E8D /* menuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 240871CF214BA1FF00216E8D /* menuViewController.m */; };
 		240A592B214955F80069119C /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 240A592A214955F80069119C /* star.png */; };
 		240A592F214956CA0069119C /* movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 240A592E214956CA0069119C /* movie.png */; };
 		2412370F2147AAA4004EADAD /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2412370E2147AAA3004EADAD /* libsqlite3.0.tbd */; };
@@ -54,6 +55,8 @@
 
 /* Begin PBXFileReference section */
 		24057D5121404755005B7AD7 /* api.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = api.plist; sourceTree = "<group>"; };
+		240871CE214BA1FF00216E8D /* menuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = menuViewController.h; sourceTree = "<group>"; };
+		240871CF214BA1FF00216E8D /* menuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = menuViewController.m; sourceTree = "<group>"; };
 		240A592A214955F80069119C /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		240A592E214956CA0069119C /* movie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movie.png; sourceTree = "<group>"; };
 		2412370E2147AAA3004EADAD /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -205,6 +208,8 @@
 				24CC9A2021413EA2006DC240 /* YoutubeViewController.m */,
 				245B4462214A800C00159854 /* Reachability.h */,
 				245B4461214A800A00159854 /* Reachability.m */,
+				240871CE214BA1FF00216E8D /* menuViewController.h */,
+				240871CF214BA1FF00216E8D /* menuViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -447,6 +452,7 @@
 				24CC9A2121413EA2006DC240 /* YoutubeViewController.m in Sources */,
 				245B4463214A800C00159854 /* Reachability.m in Sources */,
 				24C6D8D5213DF2670059D055 /* AppDelegate.m in Sources */,
+				240871D0214BA1FF00216E8D /* menuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,6 +614,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ITI.MoviesApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -623,6 +630,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ITI.MoviesApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
