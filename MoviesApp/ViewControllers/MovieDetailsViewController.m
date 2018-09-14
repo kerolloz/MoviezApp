@@ -18,6 +18,7 @@
 @property (nonatomic) sqlite3 *contactDB;
 @property (weak, nonatomic) IBOutlet UIButton *markAsFavoriteButtonOutlet;
 @property NSMutableArray *moviesArray;
+@property CGFloat tableHight;
 
 @end
 
@@ -25,6 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _tableHight = 33;
     self.moviesArray = [NSMutableArray new];
     //self.shouldInitializeWithDict = YES;
     NSString *path = [[NSBundle mainBundle] pathForResource:@"api" ofType:@"plist"];
@@ -38,6 +40,9 @@
     
     [self.movieReviewsTableView setDelegate:self];
     [self.movieReviewsTableView setDataSource:self];
+    
+    self.movieReviewsTableView.estimatedRowHeight = 800;
+    self.movieReviewsTableView.rowHeight = 800;
     
     [self intializeDataBase];
     [self checkInternetConnectivity];
@@ -55,10 +60,10 @@
     [self.movieRatingLabel setText:self.myMovie.rating];
     [self.movieTitleLabel setText:self.myMovie.title];
     [self.moviePosterImageView setImage:self.myMovie.poster];
-    
-    [self.myScrollview setScrollEnabled:YES];
-    [self.myScrollview setContentSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, 1200)];
-    
+//    
+//    [self.myScrollview setScrollEnabled:YES];
+//    [self.myScrollview setContentSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, 1200)];
+//    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -73,6 +78,7 @@
     } else{
         [self.markAsFavoriteButtonOutlet setImage:[UIImage imageNamed:@"nonStarred.png"] forState:UIControlStateNormal];
     }
+    //_traikersHight.constant = 33;
 }
 
 -(void)checkInternetConnectivity{
@@ -179,26 +185,40 @@
 }
 
 -(void)setMyTrailers:(NSArray*) trailers{
+    _traikersHight.constant = 33 + [trailers count]*80;
+    //if([self.trailers count]){
     self.trailers = [trailers mutableCopy];
-    if([self.trailers count]){
         [self.movieTrailersTableView reloadData];
-        [self addFetchedTrailersToDB];
-    }else{
+        //[self addFetchedTrailersToDB];
+   // }else{
         // no trailers available
-        [self.movieTrailersTableView removeFromSuperview];
-    }
-        
+       // [self.movieTrailersTableView removeFromSuperview];
+    //}
+    
 }
 
 -(void)setMyReviews:(NSArray*) reviews{
+    
     self.reviews = [reviews mutableCopy];
-    if([self.reviews count]){
+   // if([self.reviews count]){
+    self.reviewsHight.constant = 10000;
+    self.movieReviewsTableView.frame = CGRectMake(self.movieReviewsTableView.frame.origin.x
+                                                  , self.movieReviewsTableView.frame.origin.y, self.movieReviewsTableView.frame.size.width, 10000);
+    //self.movieReviewsTableView.frame.size
         [self.movieReviewsTableView reloadData];
-        [self addFetchedReviewsToDB];
-    }else{
-        [self.movieReviewsTableView removeFromSuperview];
+    
+//    _tableHight = 0;
+    for (int i = 0; i < reviews.count; i++) {
         
+        _tableHight += [self.movieReviewsTableView.visibleCells objectAtIndex:i].frame.size.height;
     }
+    self.reviewsHight.constant = _tableHight;
+        [self addFetchedReviewsToDB];
+    //}else{
+        //[self.movieReviewsTableView removeFromSuperview];
+        
+   // }
+    
 }
 
 -(void)addFetchedTrailersToDB{
@@ -479,17 +499,19 @@
         
         [trailerName setText:[[self.trailers objectAtIndex:indexPath.row] objectForKey:@"name"]];
         [imgView sd_setImageWithURL:url];
-        
+        _tableHight += cell.frame.size.height;
         return cell;
     
     }else{
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reviewCell" forIndexPath:indexPath];
-        UILabel *reviewAuthor = [cell viewWithTag:1];
-        UILabel *reviewContent = [cell viewWithTag:2];
-        
-        [reviewAuthor setText:[[self.reviews objectAtIndex:indexPath.row] objectForKey:@"author"] ];
-        [reviewContent setText:[[self.reviews objectAtIndex:indexPath.row] objectForKey:@"content"]];
+//        UILabel *reviewAuthor = [cell viewWithTag:1];
+//        UILabel *reviewContent = [cell viewWithTag:2];
+//
+        [cell.textLabel setText:[[self.reviews objectAtIndex:indexPath.row] objectForKey:@"author"] ];
+        [cell.detailTextLabel setText:[[self.reviews objectAtIndex:indexPath.row] objectForKey:@"content"]];
+        [cell.detailTextLabel setNumberOfLines:0];
+        [cell.detailTextLabel sizeToFit];
         
         return cell;
     }
@@ -497,7 +519,9 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
-    return 80;
+    if([self.movieTrailersTableView isEqual:tableView])
+        return 80;
+    else return UITableViewAutomaticDimension;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

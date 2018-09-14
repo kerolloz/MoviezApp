@@ -18,6 +18,7 @@
     // naming convention
     // 'movie' + [name] + [type]
 @property NSDictionary *movieDictionary;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *traikersHight;
 @property Movie *myMovie;
 @property (weak, nonatomic) IBOutlet UIScrollView *myScrollview;
 @property (weak, nonatomic) IBOutlet UIImageView *moviePosterImageView;
@@ -30,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *movieReviewsTableView;
 @property BOOL shouldInitializeWithDict;
 - (IBAction)markAsFavoriteButtonPressed:(id)sender;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *reviewsHight;
 
 
 @end
