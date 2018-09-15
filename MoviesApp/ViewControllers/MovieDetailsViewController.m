@@ -60,10 +60,7 @@
     [self.movieRatingLabel setText:self.myMovie.rating];
     [self.movieTitleLabel setText:self.myMovie.title];
     [self.moviePosterImageView setImage:self.myMovie.poster];
-//    
-//    [self.myScrollview setScrollEnabled:YES];
-//    [self.myScrollview setContentSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, 1200)];
-//    
+  
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -359,10 +356,11 @@
         }
         sqlite3_close(_contactDB);
     }
-    if(self.reviews.count)
-        [self.movieReviewsTableView reloadData];
-    else
-        [self.movieReviewsTableView removeFromSuperview];
+//    if(self.reviews.count)
+//        [self.movieReviewsTableView reloadData];
+//    else
+//        [self.movieReviewsTableView removeFromSuperview];
+    [self setMyReviews:self.reviews];
 }
 
 -(void)fetchTrailersFromDB{
@@ -404,10 +402,11 @@
         }
         sqlite3_close(_contactDB);
     }
-    if(self.trailers.count)
-        [self.movieTrailersTableView reloadData];
-    else
-        [self.movieTrailersTableView removeFromSuperview];
+//    if(self.trailers.count)
+//        [self.movieTrailersTableView reloadData];
+//    else
+//        [self.movieTrailersTableView removeFromSuperview];
+    [self setMyTrailers:self.trailers];
 }
 
 - (IBAction)markAsFavoriteButtonPressed:(id)sender {
@@ -521,7 +520,8 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     if([self.movieTrailersTableView isEqual:tableView])
         return 80;
-    else return UITableViewAutomaticDimension;
+    else
+        return UITableViewAutomaticDimension;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -20,7 +20,6 @@
 @property NSDictionary *movieDictionary;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *traikersHight;
 @property Movie *myMovie;
-@property (weak, nonatomic) IBOutlet UIScrollView *myScrollview;
 @property (weak, nonatomic) IBOutlet UIImageView *moviePosterImageView;
 @property (weak, nonatomic) IBOutlet UILabel *movieYearLabel;
 @property (weak, nonatomic) IBOutlet UILabel *movieLengthLabel;

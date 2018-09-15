@@ -200,7 +200,7 @@ static NSString * const reuseIdentifier = @"Cell";
         }
         sqlite3_close(_contactDB);
     }
-    
+    //[self.collectionView reloadData];
 }
 
 
