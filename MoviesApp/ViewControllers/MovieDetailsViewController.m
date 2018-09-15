@@ -55,9 +55,9 @@
     printf("MovieDetailsViewController viewDidLoad\n");
     
     [self.movieYearLabel setText:self.myMovie.releaseDate];
-    [self.movieLengthLabel setText:self.myMovie.movieLength];
+    [self.movieLengthLabel setText:[NSString stringWithFormat:@"%@ Minutes", self.myMovie.movieLength	]];
     [self.movieDescriptionLabel setText:self.myMovie.overview];
-    [self.movieRatingLabel setText:self.myMovie.rating];
+    [self.movieRatingLabel setText:[NSString stringWithFormat:@"%@/10", self.myMovie.rating]];
     [self.movieTitleLabel setText:self.myMovie.title];
     [self.moviePosterImageView setImage:self.myMovie.poster];
   
@@ -147,6 +147,8 @@
 
 -(void)setRunTime:(NSString*) movieLength{
     [self.movieLengthLabel setText:movieLength];
+    [self.movieLengthLabel setText:[NSString stringWithFormat:@"%@ Minutes", movieLength    ]];
+
     self.myMovie.movieLength = movieLength;
     [self updateRuntimeInDB];
     
