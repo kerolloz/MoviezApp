@@ -37,6 +37,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    [self.navigationItem setTitle:@"Favorites"];
     self.tabBarController.tabBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
     
     self.navigationController.navigationBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
@@ -127,7 +128,6 @@ static NSString * const reuseIdentifier = @"Cell";
                                                                             statement, 6)];
                 
                 [self.moviesArray addObject:movie];
-                NSLog( @"Match found");
 
             }
             sqlite3_finalize(statement);

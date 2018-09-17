@@ -199,8 +199,6 @@
 				24C6D906213DF2F50059D055 /* HomeCollectionViewController.m */,
 				24CC9A1F21413EA2006DC240 /* YoutubeViewController.h */,
 				24CC9A2021413EA2006DC240 /* YoutubeViewController.m */,
-				245B4462214A800C00159854 /* Reachability.h */,
-				245B4461214A800A00159854 /* Reachability.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -242,6 +240,8 @@
 		F54DEAF74B06B1B73BFE2C4F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				245B4462214A800C00159854 /* Reachability.h */,
+				245B4461214A800A00159854 /* Reachability.m */,
 				245B4464214A804800159854 /* SystemConfiguration.framework */,
 				2412370E2147AAA3004EADAD /* libsqlite3.0.tbd */,
 				DD3AABCECAC84F39F71D82BA /* libPods-MoviesApp.a */,

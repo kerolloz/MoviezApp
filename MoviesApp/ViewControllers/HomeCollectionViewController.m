@@ -40,12 +40,9 @@ static NSString * const reuseIdentifier = @"Cell";
     [self intializeSideMenu];
     [self intializeDataBase];
     
-    self.isInSortView = 0;
+    self.isInSortView = 0; // not in sort view
     
-    
-    
-    
-    self.moviesArray = [NSMutableArray new]; // dumb object
+    self.moviesArray = [NSMutableArray new];
     
     self.width = [UIScreen mainScreen].bounds.size.width/2;
     self.height = [UIScreen mainScreen].bounds.size.height/2;
@@ -54,7 +51,7 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)intializeSideMenu{
     
     self.menuOptions = @[@"Movies Sorted By:", @"Most Popular", @"Highest Rated", @"Night Mode 🌙"];
-    //  ************************** Right Menu *******************************
+
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
     
     UISwipeGestureRecognizer *hideMenuGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self
@@ -68,13 +65,12 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.view addGestureRecognizer:showMenuGesture];
     
     [self setupMenuView];
-    //  ******************************************************************
     
 }
 
 -(BOOL)isConnected{
     if ([[Reachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable){
-        //connection unavailable
+        //connection  NOT available
         return NO;
     }
     else{
@@ -98,8 +94,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    printf("view will appear\n");
-    [self fetchMovies];
+    [self fetchMovies]; // fetch movies wehter from API or DB
 
     self.tabBarController.tabBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
     self.navigationController.navigationBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
@@ -113,12 +108,8 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)intializeDataBase{
-    NSString *docsDir;
-    NSArray *dirPaths;
-    
-    // Get the documents directory
-    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    docsDir = dirPaths[0];
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsDir = dirPaths[0];
     
     // Build the path to the database file
     _databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent:@"movies.db"]];
@@ -218,7 +209,7 @@ static NSString * const reuseIdentifier = @"Cell";
                                                                        statement, 6)];
                 
                 [moviesFromDB addObject:movie];
-                NSLog( @"Match found");
+                
                 
             }
             sqlite3_finalize(statement);
@@ -269,7 +260,7 @@ static NSString * const reuseIdentifier = @"Cell";
                 NSLog(@"movie added");
                 
             } else {
-                NSLog(@"failed to add Movie");
+                NSLog(@"failed to add Movie (movie may exist)");
             }
         }
         sqlite3_finalize(statement);

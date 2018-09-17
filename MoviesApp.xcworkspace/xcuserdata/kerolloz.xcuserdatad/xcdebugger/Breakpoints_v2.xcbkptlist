@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoviesApp/ViewControllers/MovieDetailsViewController.m"
-            timestampString = "558875241.088704"
+            timestampString = "558880608.5484999"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "-addFetchedReviewsToDB"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoviesApp/ViewControllers/HomeCollectionViewController.m"
-            timestampString = "558875241.0888489"
+            timestampString = "558880608.548722"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "-fetchMovies"
             landmarkType = "7">
          </BreakpointContent>
@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoviesApp/ViewControllers/HomeCollectionViewController.m"
-            timestampString = "558875241.089819"
+            timestampString = "558880608.548839"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "-fetchMoviesFromDataBaseSortedBy"
             landmarkType = "7">
          </BreakpointContent>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoviesApp/ViewControllers/HomeCollectionViewController.m"
-            timestampString = "558875241.090821"
+            timestampString = "558880608.548947"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "332"
-            endingLineNumber = "332"
+            startingLineNumber = "323"
+            endingLineNumber = "323"
             landmarkName = "-collectionView:cellForItemAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -282,7 +282,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoviesApp/ViewControllers/MovieDetailsViewController.m"
-            timestampString = "558875241.091855"
+            timestampString = "558880608.549051"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoviesApp/ViewControllers/MovieDetailsViewController.m"
-            timestampString = "558875241.092096"
+            timestampString = "558880608.549167"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "-checkInternetConnectivity"
             landmarkType = "7">
          </BreakpointContent>

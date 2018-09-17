@@ -42,16 +42,7 @@
     self.movieReviewsTableView.rowHeight = 800;
     
     [self intializeDataBase];
-    
-
-//
-//    self.trailers = @[];
-//    self.reviews = @[];
-//
-    printf("MovieDetailsViewController viewDidLoad\n");
-    
-    
-  
+      
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -68,7 +59,6 @@
     } else{
         [self.markAsFavoriteButtonOutlet setImage:[UIImage imageNamed:@"nonStarred.png"] forState:UIControlStateNormal];
     }
-    //_traikersHight.constant = 33;
 }
 
 -(void)checkInternetConnectivity{
@@ -191,39 +181,26 @@
 }
 
 -(void)setMyTrailers:(NSArray*) trailers{
-    _traikersHight.constant = 33 + [trailers count]*80;
-    //if([self.trailers count]){
+    _traikersHight.constant = 33 + [trailers count] * 80;
     self.trailers = [trailers mutableCopy];
-        [self.movieTrailersTableView reloadData];
-        //[self addFetchedTrailersToDB];
-   // }else{
-        // no trailers available
-       // [self.movieTrailersTableView removeFromSuperview];
-    //}
+    [self.movieTrailersTableView reloadData];
     
 }
 
 -(void)setMyReviews:(NSArray*) reviews{
     
     self.reviews = [reviews mutableCopy];
-   // if([self.reviews count]){
     self.reviewsHight.constant = 10000;
     self.movieReviewsTableView.frame = CGRectMake(self.movieReviewsTableView.frame.origin.x
                                                   , self.movieReviewsTableView.frame.origin.y, self.movieReviewsTableView.frame.size.width, 10000);
-    //self.movieReviewsTableView.frame.size
-        [self.movieReviewsTableView reloadData];
+    [self.movieReviewsTableView reloadData];
     
-//    _tableHight = 0;
     for (int i = 0; i < reviews.count; i++) {
         
         _tableHight += [self.movieReviewsTableView.visibleCells objectAtIndex:i].frame.size.height;
     }
     self.reviewsHight.constant = _tableHight;
-        [self addFetchedReviewsToDB];
-    //}else{
-        //[self.movieReviewsTableView removeFromSuperview];
-        
-   // }
+    [self addFetchedReviewsToDB];
     
 }
 
@@ -252,7 +229,7 @@
                 NSLog(@"trailer added");
                 
             } else {
-                NSLog(@"failed to add Trailer");
+                NSLog(@"failed to add Trailer (trailer may exist)");
             }
         }
         sqlite3_finalize(statement);
@@ -283,7 +260,7 @@
                 NSLog(@"Review added");
                 
             } else {
-                NSLog(@"failed to add Review");
+                NSLog(@"failed to add Review (review may exist)");
             }
         }
         sqlite3_finalize(statement);
@@ -365,10 +342,7 @@
         }
         sqlite3_close(_contactDB);
     }
-//    if(self.reviews.count)
-//        [self.movieReviewsTableView reloadData];
-//    else
-//        [self.movieReviewsTableView removeFromSuperview];
+    
     [self setMyReviews:self.reviews];
 }
 
@@ -411,10 +385,7 @@
         }
         sqlite3_close(_contactDB);
     }
-//    if(self.trailers.count)
-//        [self.movieTrailersTableView reloadData];
-//    else
-//        [self.movieTrailersTableView removeFromSuperview];
+        
     [self setMyTrailers:self.trailers];
 }
 
@@ -474,10 +445,10 @@
                            -1, &statement, NULL);
         if (sqlite3_step(statement) == SQLITE_DONE)
         {
-            NSLog(@"movie DELETED");
+            NSLog(@"movie removed from FAV");
             
         } else {
-            NSLog(@"failed to add Movie");
+            NSLog(@"failed to remove movie form FAV");
         }
         sqlite3_finalize(statement);
         sqlite3_close(_contactDB);
@@ -513,9 +484,7 @@
     }else{
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reviewCell" forIndexPath:indexPath];
-//        UILabel *reviewAuthor = [cell viewWithTag:1];
-//        UILabel *reviewContent = [cell viewWithTag:2];
-//
+
         [cell.textLabel setText:[[self.reviews objectAtIndex:indexPath.row] objectForKey:@"author"] ];
         [cell.detailTextLabel setText:[[self.reviews objectAtIndex:indexPath.row] objectForKey:@"content"]];
         [cell.detailTextLabel setNumberOfLines:0];

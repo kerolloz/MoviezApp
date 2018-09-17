@@ -15,12 +15,11 @@
 @implementation YoutubeViewController
 
 - (void)viewDidLoad {
-    
-    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.playerView loadWithVideoId:self.videoKey];
 }
+
 -(void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
     self.navigationController.navigationBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
@@ -29,6 +28,7 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
 }
+
 -(void)viewWillDisappear:(BOOL)animated{
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
