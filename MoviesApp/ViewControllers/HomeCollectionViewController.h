@@ -5,7 +5,7 @@
 //  Created by Kerollos Magdy Takawey Atallah on 9/4/18.
 //  Copyright © 2018 Kerollos Magdy & Mohamed Maged. All rights reserved.
 //
-#define menuWidth 200
+
 #import <UIKit/UIKit.h>
 #import "MovieDetailsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -14,6 +14,8 @@
 #import "Reachability.h"
 #import <LGSideMenuController/LGSideMenuController.h>
 #import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+
+#define menuWidth 200 // <- side menu "Settings Menu"
 
 @interface HomeCollectionViewController : UICollectionViewController<UICollectionViewDelegateFlowLayout,UITableViewDelegate, UITableViewDataSource>
 

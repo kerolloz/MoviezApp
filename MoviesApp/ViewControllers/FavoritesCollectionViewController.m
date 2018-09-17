@@ -38,24 +38,24 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
+    
     self.navigationController.navigationBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
-    self.navigationController.navigationItem.rightBarButtonItem.tintColor = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? [UIColor whiteColor] : [UIColor blackColor];
+    
     [[UIView appearance] setTintColor:([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? [UIColor whiteColor] : [UIColor blackColor]];
     
     self.moviesArray = [NSMutableArray new];
+    
     [self fetchMoviesFromDataBase];
     [self.collectionView reloadData];
+    
+    // if no favorite movies show "NO Movies" label
     if(self.moviesArray.count) _noMoviesLabel.hidden = YES;
     else _noMoviesLabel.hidden = NO;
 }
 
 -(void)intializeDataBase{
-    NSString *docsDir;
-    NSArray *dirPaths;
-    
-    // Get the documents directory
-    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    docsDir = dirPaths[0];
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsDir = dirPaths[0];
     
     // Build the path to the database file
     _databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent:@"movies.db"]];
