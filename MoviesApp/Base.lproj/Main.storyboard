@@ -383,6 +383,10 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="youtube-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="g9k-IO-yE1">
+                                                                    <rect key="frame" x="60" y="24" width="30" height="30"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                </imageView>
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="dAa-Ce-dJN" firstAttribute="leading" secondItem="483-YR-Hk0" secondAttribute="trailing" constant="3.5" id="9KI-1S-upo"/>
@@ -509,7 +513,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nWe-vb-k17" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3225" y="349"/>
+            <point key="canvasLocation" x="3225" y="348.59154929577466"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="doa-VZ-ZVW">
@@ -536,6 +540,7 @@
         <image name="HomeTab.png" width="30" height="30"/>
         <image name="nonStarred.png" width="210" height="194"/>
         <image name="settings(1).png" width="20" height="20"/>
+        <image name="youtube-icon.png" width="512" height="512"/>
     </resources>
     <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

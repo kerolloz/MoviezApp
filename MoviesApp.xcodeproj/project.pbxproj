@@ -29,6 +29,7 @@
 		24C6D8F8213DF2670059D055 /* MoviesAppUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6D8F7213DF2670059D055 /* MoviesAppUITests.m */; };
 		24C6D907213DF2F50059D055 /* HomeCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6D906213DF2F50059D055 /* HomeCollectionViewController.m */; };
 		24C6D90A213DF3820059D055 /* MovieDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C6D909213DF3820059D055 /* MovieDetailsViewController.m */; };
+		24CB4385214FDC8100D586A8 /* youtube-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 24CB4384214FDC8100D586A8 /* youtube-icon.png */; };
 		24CC9A2121413EA2006DC240 /* YoutubeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24CC9A2021413EA2006DC240 /* YoutubeViewController.m */; };
 		83555A67F7904A477A1CFA66 /* libPods-MoviesApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD3AABCECAC84F39F71D82BA /* libPods-MoviesApp.a */; };
 /* End PBXBuildFile section */
@@ -88,6 +89,7 @@
 		24C6D906213DF2F50059D055 /* HomeCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCollectionViewController.m; sourceTree = "<group>"; };
 		24C6D908213DF3820059D055 /* MovieDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieDetailsViewController.h; sourceTree = "<group>"; };
 		24C6D909213DF3820059D055 /* MovieDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieDetailsViewController.m; sourceTree = "<group>"; };
+		24CB4384214FDC8100D586A8 /* youtube-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "youtube-icon.png"; sourceTree = "<group>"; };
 		24CC9A1F21413EA2006DC240 /* YoutubeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YoutubeViewController.h; sourceTree = "<group>"; };
 		24CC9A2021413EA2006DC240 /* YoutubeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YoutubeViewController.m; sourceTree = "<group>"; };
 		702D8833CFACC0A6D23E6A3D /* Pods-MoviesApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoviesApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoviesApp/Pods-MoviesApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 		24CC9A2521414FD4006DC240 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				24CB4384214FDC8100D586A8 /* youtube-icon.png */,
 				2413FD1C214B099B007BDBBD /* Background.png */,
 				240A592E214956CA0069119C /* movie.png */,
 				240A592A214955F80069119C /* star.png */,
@@ -365,6 +368,7 @@
 				240A592F214956CA0069119C /* movie.png in Resources */,
 				240871D2214BC7DD00216E8D /* settings(1).png in Resources */,
 				2413FD1D214B099B007BDBBD /* Background.png in Resources */,
+				24CB4385214FDC8100D586A8 /* youtube-icon.png in Resources */,
 				241237132147DB2C004EADAD /* nonStarred.png in Resources */,
 				2483B7BC213F1DAC0060FF69 /* FavTab.png in Resources */,
 			);
