@@ -33,31 +33,14 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.menuOptions = @[@"Movies Sorted By:", @"Most Popular", @"Highest Rated", @"Night Mode 🌙"];
-    //  ************************** Right Menu *******************************
-    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-    
-    UISwipeGestureRecognizer *hideMenuGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                          action:@selector(handleGesture:)];
-    hideMenuGesture.direction = UISwipeGestureRecognizerDirectionRight ;
-    [self.view addGestureRecognizer:hideMenuGesture];
-
-    UISwipeGestureRecognizer *showMenuGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                          action:@selector(handleGesture:)];
-    showMenuGesture.direction = UISwipeGestureRecognizerDirectionLeft;
-    [self.view addGestureRecognizer:showMenuGesture];
-    
-    [self setupMenuView];
-    //  ******************************************************************
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"api" ofType:@"plist"];
     self.apiPlistDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
     
+    [self intializeSideMenu];
     [self intializeDataBase];
-    [self checkInternetConnectivity];
     
     self.isInSortView = 0;
-    
     
     
     
@@ -68,20 +51,56 @@ static NSString * const reuseIdentifier = @"Cell";
     self.height = [UIScreen mainScreen].bounds.size.height/2;
 }
 
--(void)checkInternetConnectivity{
-   
+-(void)intializeSideMenu{
+    
+    self.menuOptions = @[@"Movies Sorted By:", @"Most Popular", @"Highest Rated", @"Night Mode 🌙"];
+    //  ************************** Right Menu *******************************
+    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    
+    UISwipeGestureRecognizer *hideMenuGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                          action:@selector(handleGesture:)];
+    hideMenuGesture.direction = UISwipeGestureRecognizerDirectionRight ;
+    [self.view addGestureRecognizer:hideMenuGesture];
+    
+    UISwipeGestureRecognizer *showMenuGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                          action:@selector(handleGesture:)];
+    showMenuGesture.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:showMenuGesture];
+    
+    [self setupMenuView];
+    //  ******************************************************************
+    
+}
+
+-(BOOL)isConnected{
     if ([[Reachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable){
         //connection unavailable
-        [self fetchMoviesFromDataBaseSortedBy];
+        return NO;
     }
     else{
         //connection available
+        return YES;
+    }
+    
+}
+
+-(void)fetchMovies{
+   
+    if ([self isConnected]){
         [self fetchMoviesFromAPISortedBy];
+
+    }else{
+        [self fetchMoviesFromDataBaseSortedBy];
+
+     
     }
     
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    printf("view will appear\n");
+    [self fetchMovies];
+
     self.tabBarController.tabBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
     self.navigationController.navigationBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
     self.navigationController.navigationItem.rightBarButtonItem.tintColor = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? [UIColor whiteColor] : [UIColor blackColor];
@@ -124,11 +143,16 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)fetchMoviesFromDataBaseSortedBy{
     
-    
+    NSMutableArray *moviesFromDB = [NSMutableArray new];
+
     NSString *sortedBy = [[NSUserDefaults standardUserDefaults] objectForKey:@"sortedBy"];
     if(sortedBy == nil){sortedBy = @"discoverMostPopular";}
     
     int sortMethod = ([sortedBy isEqualToString:@"discoverMostPopular"])? 1 : 2;
+    
+
+    NSString *title = ([sortedBy isEqualToString:@"discoverMostPopular"])? @"Most Popular" : @"Highest Rated";
+    [self.navigationItem setTitle:title];
     
     
     const char *dbpath = [_databasePath UTF8String];
@@ -149,6 +173,7 @@ static NSString * const reuseIdentifier = @"Cell";
         //Sort 7  = (1=Most POP, 2=HighestRated)
         //isFav 8
         const char *query_stmt = [querySQL UTF8String];
+        
         
         if (sqlite3_prepare_v2(_contactDB,
                                query_stmt, -1, &statement, NULL) == SQLITE_OK)
@@ -192,7 +217,7 @@ static NSString * const reuseIdentifier = @"Cell";
                                     (const char *) sqlite3_column_text(
                                                                        statement, 6)];
                 
-                [self.moviesArray addObject:movie];
+                [moviesFromDB addObject:movie];
                 NSLog( @"Match found");
                 
             }
@@ -200,7 +225,9 @@ static NSString * const reuseIdentifier = @"Cell";
         }
         sqlite3_close(_contactDB);
     }
-    //[self.collectionView reloadData];
+    if(moviesFromDB.count)
+        self.moviesArray = moviesFromDB;
+    [self.collectionView reloadData];
 }
 
 
@@ -308,7 +335,12 @@ static NSString * const reuseIdentifier = @"Cell";
     
     if([self.moviesArray count] > 2){
         NSString *moviePosterURLFormat = [self.apiPlistDictionary objectForKey:@"moviePosterURLFormat"];
-        NSString *posterPath = [(NSDictionary *)[self.moviesArray objectAtIndex:indexPath.row] objectForKey:@"poster_path"];
+        NSString *posterPath;
+        if([[self.moviesArray objectAtIndex:indexPath.row] isKindOfClass:[NSDictionary class]]){
+                posterPath = [(NSDictionary *)[self.moviesArray objectAtIndex:indexPath.row] objectForKey:@"poster_path"];
+        }
+        else
+            posterPath = [(Movie *)[self.moviesArray objectAtIndex:indexPath.row] posterPath];
         NSString *posterURL = [NSString stringWithFormat:moviePosterURLFormat, posterPath];
         [image sd_setImageWithURL:[NSURL URLWithString:posterURL]
                  placeholderImage:[UIImage imageNamed:@"movie.png"]];
@@ -328,7 +360,12 @@ static NSString * const reuseIdentifier = @"Cell";
     if(!self.isInSortView){ // if not in sort view , you can select a movie
         MovieDetailsViewController *movie = [self.storyboard instantiateViewControllerWithIdentifier:@"MovieDetailsViewController"];
         [movie setShouldInitializeWithDict:YES];
-        [movie setMovieDictionary:[self.moviesArray objectAtIndex:indexPath.row]];
+        
+        if([[self.moviesArray objectAtIndex:indexPath.row] isKindOfClass:[NSDictionary class]])
+            [movie setMovieDictionary:[self.moviesArray objectAtIndex:indexPath.row]];
+        else
+            [movie setMyMovie:[self.moviesArray objectAtIndex:indexPath.row]];
+        
         [self.navigationController pushViewController:movie animated:YES];
     }
     
@@ -494,7 +531,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
     if(indexPath.row == 1){
         [[NSUserDefaults standardUserDefaults] setValue:@"discoverMostPopular" forKey:@"sortedBy"];
-        [self checkInternetConnectivity];
+        [self fetchMovies];
         [self toggleMenu:NO];
         self.isInSortView = 0;
         [tableView cellForRowAtIndexPath:indexPath].textLabel.text = [NSString stringWithFormat:@"%@ %@", [self.menuOptions objectAtIndex:indexPath.row], @"✅"];
@@ -502,7 +539,7 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     else if(indexPath.row == 2){
         [[NSUserDefaults standardUserDefaults] setValue:@"discoverHighestRated" forKey:@"sortedBy"];
-        [self checkInternetConnectivity];
+        [self fetchMovies];
         [self toggleMenu:NO];
         self.isInSortView = 0;
         [tableView cellForRowAtIndexPath:indexPath].textLabel.text = [NSString stringWithFormat:@"%@ %@", [self.menuOptions objectAtIndex:indexPath.row], @"✅"];

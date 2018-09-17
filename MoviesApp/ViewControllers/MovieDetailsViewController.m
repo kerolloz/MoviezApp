@@ -17,7 +17,6 @@
 @property (strong , nonatomic) NSString *databasePath;
 @property (nonatomic) sqlite3 *contactDB;
 @property (weak, nonatomic) IBOutlet UIButton *markAsFavoriteButtonOutlet;
-@property NSMutableArray *moviesArray;
 @property CGFloat tableHight;
 
 @end
@@ -27,8 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _tableHight = 33;
-    self.moviesArray = [NSMutableArray new];
-    //self.shouldInitializeWithDict = YES;
     NSString *path = [[NSBundle mainBundle] pathForResource:@"api" ofType:@"plist"];
     self.apiPlistDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
 
@@ -45,7 +42,6 @@
     self.movieReviewsTableView.rowHeight = 800;
     
     [self intializeDataBase];
-    [self checkInternetConnectivity];
     
 
 //
@@ -54,16 +50,13 @@
 //
     printf("MovieDetailsViewController viewDidLoad\n");
     
-    [self.movieYearLabel setText:self.myMovie.releaseDate];
-    [self.movieLengthLabel setText:[NSString stringWithFormat:@"%@ Minutes", self.myMovie.movieLength	]];
-    [self.movieDescriptionLabel setText:self.myMovie.overview];
-    [self.movieRatingLabel setText:[NSString stringWithFormat:@"%@/10", self.myMovie.rating]];
-    [self.movieTitleLabel setText:self.myMovie.title];
-    [self.moviePosterImageView setImage:self.myMovie.poster];
+    
   
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    [self checkInternetConnectivity];
+
     self.tabBarController.tabBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
     self.navigationController.navigationBar.barStyle = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? UIBarStyleBlack : UIBarStyleDefault;
     self.navigationController.navigationItem.rightBarButtonItem.tintColor = ([[NSUserDefaults standardUserDefaults] boolForKey:@"NightMode"])? [UIColor whiteColor] : [UIColor blackColor];
@@ -82,8 +75,15 @@
     
     if ([[Reachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable){
         //connection unavailable
+        if(!self.myMovie){
+            
+            self.myMovie = [Movie new];
+            [self.myMovie setMovieDelegate:self];
+            [self.myMovie intializeMovieWithDictionary:self.movieDictionary];
+        }
         [self fetchTrailersFromDB];
         [self fetchReviewsFromDB];
+        [self.moviePosterImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"moviePosterURLFormat"], self.myMovie.posterPath]]];
     }
     else{
         //connection available
@@ -91,6 +91,8 @@
             self.myMovie = [Movie new];
             [self.myMovie setMovieDelegate:self];
             [self.myMovie intializeMovieWithDictionary:self.movieDictionary];
+            self.moviePosterImageView.image = self.myMovie.poster;
+
         }else{
             
             NSString *moviePosterURL = [NSString stringWithFormat:[self.apiPlistDictionary objectForKey:@"moviePosterURLFormat"], self.myMovie.posterPath];
@@ -101,7 +103,12 @@
             [self fetchReviewsFromDB];
         }
     }
-    
+    [self.movieYearLabel setText:self.myMovie.releaseDate];
+    [self.movieLengthLabel setText:[NSString stringWithFormat:@"%@ Minutes", self.myMovie.movieLength    ]];
+    [self.movieDescriptionLabel setText:self.myMovie.overview];
+    [self.movieRatingLabel setText:[NSString stringWithFormat:@"%@/10", self.myMovie.rating]];
+    [self.movieTitleLabel setText:self.myMovie.title];
+
 }
 
 -(void)intializeDataBase{
