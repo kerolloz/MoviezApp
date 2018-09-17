@@ -1,8 +1,8 @@
 # MovieZ
 
 ### Team Members
-- Kerollos Magdy
-- Moahmed Maged
+1. Kerollos Magdy
+1. Mohamed Maged
 
 ### Tools
 * Objective-C
