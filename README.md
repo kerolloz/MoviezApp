@@ -1,8 +1,16 @@
 # MovieZ
----
-### ScreenShots
+
+### Screenshots
+
+<img src="https://image.ibb.co/iCcL7K/output_St7cc_A.gif" alt="app icon" width="200"/>
+
+
+
+### Video
 [![Demo](http://img.youtube.com/vi/eOf1xmcRk2Q/0.jpg)](http://www.youtube.com/watch?v=eOf1xmcRk2Q "Demo")
+
 ---
+
 ### Tools
 * Objective-C
 * iOS 11
@@ -11,5 +19,3 @@
 * Slack
 * Github
 * Sketch
-
-
