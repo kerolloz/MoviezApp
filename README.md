@@ -13,6 +13,7 @@
 * Once online, all the movie details you see will remain available offline.
 * User can choose two ways for sorting the movies.
 * User can favorite any movie.
+* Autolayout to fit multiple devices.
 * Night mode.
 
 ----
