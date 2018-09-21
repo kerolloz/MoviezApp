@@ -1,7 +1,13 @@
 # MovieZ
 
 ### Overview
-* Simple iOS application that provides the user with a list of the lates movies in cinema.
+ Moviez is a simple iOS application that provides the user with a list of the newst movies in cinema.
+
+---
+
+### Features
+* Movie details: release date, rating and length(runtime in minutes).
+* Reviews and trailers with YouTube player embedded into the application.
 * No registration, No Sign up, No time wasters.
 * Only a couple of tabs will get you inside the movie details.
 * Once online, all the movie details you see will remain available offline.
@@ -11,13 +17,12 @@
 
 ----
 
-### Tools
+### Tools and Technologies
 * Objective-C
 * iOS 11
 * Xcode 9.2
-* Cocoapods
+* Cocoapods: </br>1. AFNetworking </br>2. SDWebImage </br>3.
 * Slack
-* Github
 * Sketch
 
 ---
