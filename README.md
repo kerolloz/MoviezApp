@@ -21,7 +21,7 @@
 * Objective-C
 * iOS 11
 * Xcode 9.2
-* Cocoapods: </br>1. AFNetworking </br>2. SDWebImage </br>3.
+* Cocoapods: </br>1. AFNetworking </br>2. SDWebImage </br>3. youtube-ios-player-helper
 * Slack
 * Sketch
 
