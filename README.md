@@ -1,14 +1,16 @@
 # MovieZ
 
-### Screenshots
-
-<img src="https://image.ibb.co/iCcL7K/output_St7cc_A.gif" alt="app icon" width="200"/>
+### Overview
+* Simple iOS application that provides the user with a list of the lates movies in cinema.
+* No registration, No Sign up, No time wasters.
+* Only a couple of tabs will get you inside the movie details.
+* Once online, all the movie details you see will remain available offline.
+* User can choose two ways for sorting the movies.
+* User can favorite any movie.
+* Night mode.
 
 ----
 
-### Video (Youtube)
-<a href="http://www.youtube.com/watch?v=eOf1xmcRk2Q" > <img src="http://img.youtube.com/vi/eOf1xmcRk2Q/0.jpg" alt="app icon" width="300"/></a>
----
 ### Tools
 * Objective-C
 * iOS 11
@@ -17,3 +19,15 @@
 * Slack
 * Github
 * Sketch
+
+---
+
+### Screenshots
+
+<img src="https://image.ibb.co/iCcL7K/output_St7cc_A.gif" alt="app icon" width="300"/>
+
+----
+
+### Video (Youtube)
+<a href="http://www.youtube.com/watch?v=eOf1xmcRk2Q" > <img src="http://img.youtube.com/vi/eOf1xmcRk2Q/0.jpg" alt="app icon" width="300"/></a>
+---
