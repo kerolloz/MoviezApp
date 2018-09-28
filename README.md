@@ -35,5 +35,5 @@
 ----
 
 ### Video (Youtube)
-<a href="http://www.youtube.com/watch?v=eOf1xmcRk2Q" > <img src="http://img.youtube.com/vi/eOf1xmcRk2Q/0.jpg" alt="app icon" width="300"/></a>
+<a href="http://www.youtube.com/watch?v=eOf1xmcRk2Q" > <img src="http://img.youtube.com/vi/eOf1xmcRk2Q/0.jpg" alt="Video link" width="300"/></a>
 ---
